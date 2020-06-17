@@ -1,16 +1,20 @@
-// While estructure control
-// Also use the break and continue into the while
-
 fn main () {
-  let mut n = 0;
+  // Del 1 al 10
+  for i in 1..11 { // Not inclusive
+    println!("The number is {}", i);
+  }
 
-  while n <= 50 {
+  let numbers = 30..51; // This is array
+  for i in numbers {
+    println!("The number is {}", i);
+  }
 
-    // Print if n is multiple for 5
-    if n%5 == 0 {
-      println!("The value of n is {}", n);
-    }
+  let animals = vec!["Rabit","Dog","Cat"]; // Array de strings 
+  for a in animals.iter() { // Recorriendo un iterable
+    println!("The animal is {}", a);
+  }
 
-    n += 1;
+  for (index, a) in animals.iter().enumerate() {
+    println!("The index is {} and the animal name is {}", index, a);
   }
 }
