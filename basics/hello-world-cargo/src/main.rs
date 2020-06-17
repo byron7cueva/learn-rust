@@ -1,14 +1,21 @@
-/*
-Estructura de control if and else
-*/
+// Infinite loop
 fn main () {
-  let n = 20;
-  
-  if n == 45 {
-    println!("The number is equals to 45");
-  } else if n > 50 {
-    println!("The number is grate to 50");
-  } else {
-    println!("The number is diferent to 45 and less that 50");
+  let mut n = 0;
+
+  // This is a loop
+  loop {
+    n += 1;
+
+    if n == 7 {
+      // skip to next iteration
+      continue;
+    }
+
+    if n > 10 {
+      // Finalice loop
+      break;
+    }
+
+    println!("The n is {}", n);
   }
 }
