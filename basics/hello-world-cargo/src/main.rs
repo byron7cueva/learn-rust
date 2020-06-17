@@ -1,17 +1,15 @@
+// Code blocks
+
 fn main () {
-  print_numbers_to(10);
-}
+  let x = 10;
 
-fn print_numbers_to (num: u32) { // This function receibe a number unsign of 32 bits
-  for n in 1..num {
-    if is_even(n) {
-      println!("{} is even", n);
-    } else {
-      println!("{} is odd", n);
-    }
+  {
+    // Isolate
+    // Aqui se puede acceder a variables declaradas fuera de este bloque y dentro de este
+    // Las variables declaradas dentro de este bloque no se puede acceder de este
+
+    let y = 20;
+    println!("x: {}, y: {}", x, y);
   }
+  // println!("x: {}, y: {}", x, y); // No se puede utilizar y desde aca
 }
-
-fn is_even (num: u32) -> bool { // This function return to boolean
-  return num % 2 == 0;
-}  
