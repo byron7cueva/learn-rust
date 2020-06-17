@@ -1,25 +1,14 @@
+/*
+Estructura de control if and else
+*/
 fn main () {
-  // Por defecto todas las variables en rust son definidas como inmutables
-  // let x = 45;
-  // Definiendo la variable como mutable
-  let mut x = 45; // i32 Numero entero de 32
+  let n = 20;
   
-  println!("The value of x is {} ", x);
-
-  x = 60;
-  println!("The value of x is {}", x);
-
-  // Datat types
-  // Entero
-  let mut y: i64 = 45; // Definiendo entero de 64
-  let a: u64 = 45; // Sin signo
-  y = -45;
-
-  // Flotante
-  let f = 6.72; // f32
-  let fa: f32 = 6.72; // f32
-  let fb: f64 = 6.23;
-
-  // Booleano
-  let b: bool = false;
+  if n == 45 {
+    println!("The number is equals to 45");
+  } else if n > 50 {
+    println!("The number is grate to 50");
+  } else {
+    println!("The number is diferent to 45 and less that 50");
+  }
 }
