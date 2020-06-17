@@ -1,20 +1,8 @@
-// Enum
-
-enum Direction {
-  Up,
-  Dow,
-  Left,
-  Right
-}
+// Constants
+const MAXIMUN_NUMBER: u8 = 20;
 
 fn main () {
-  let player_direction: Direction = Direction::Dow; // Con :: se accede a una variable
-
-  // Similar to switch, validate value and execute case
-  match player_direction {
-    Direction::Dow => println!("The direction is down"),
-    Direction::Up => println!("The direction is up"),
-    Direction::Left => println!("The direction is left"),
-    Direction::Right => println!("The direction is right")
+  for n in 1..MAXIMUN_NUMBER {
+    println!("{}", n);
   }
 }
