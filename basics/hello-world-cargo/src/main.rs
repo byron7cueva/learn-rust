@@ -1,21 +1,16 @@
-// Infinite loop
+// While estructure control
+// Also use the break and continue into the while
+
 fn main () {
   let mut n = 0;
 
-  // This is a loop
-  loop {
+  while n <= 50 {
+
+    // Print if n is multiple for 5
+    if n%5 == 0 {
+      println!("The value of n is {}", n);
+    }
+
     n += 1;
-
-    if n == 7 {
-      // skip to next iteration
-      continue;
-    }
-
-    if n > 10 {
-      // Finalice loop
-      break;
-    }
-
-    println!("The n is {}", n);
   }
 }
