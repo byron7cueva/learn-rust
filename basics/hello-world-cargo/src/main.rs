@@ -1,19 +1,23 @@
-// String
+// trait
+// This is similar to interface in Java
+
+struct Person {
+  name: String,
+  age: u8
+}
+
+// ToString is trait
+impl ToString for Person {
+  fn to_string(&self) -> String {
+    return format!("My name is {} and I am {}.", self.name, self.age);
+  }
+}
 
 fn main () {
-  let mut my_string = String::from("My name is Byron");
+  let byron = Person {
+    name: String::from("Byron"),
+    age: 30
+  };
 
-  // Length
-  println!("Length: {}", my_string.len());
-
-  // Is empty
-  println!("Is empty? {}", my_string.is_empty());
-
-  for token in my_string.split_whitespace() {
-    println!("{}", token);
-  }
-
-  println!("Does the string contain 'Byr'? {}", my_string.contains("Byr"));
-  my_string.push_str(" Wellcome");
-  println!("{}", my_string);
+  println!("{}", byron.to_string());
 }
