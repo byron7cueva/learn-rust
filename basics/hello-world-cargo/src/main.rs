@@ -1,12 +1,14 @@
-// Comand line arguments
-// Run with: cargo run arg1 arg2
+// Writen to a file
 
-use std::env;
+use std::fs::File;
+use std::io::prelude::*;
 
 fn main () {
-  let args: Vec<String> = env::args().collect();
+  // Create a file
+  let mut file = File::create("output.txt")
+  .expect("Could not create file");
 
-  for argument in args {
-    println!("{}", argument);
-  }
+  // Write in the file
+  file.write_all(b"Wellcome to Byron code")
+  .expect("Cannot write to the file");
 }
