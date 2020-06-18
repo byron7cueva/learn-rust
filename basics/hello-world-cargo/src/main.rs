@@ -1,17 +1,20 @@
-// Vector
+// Read file
+
+use std::fs::File;
+use std::io::prelude::*;
 
 fn main () {
-  // Create a vector
-  let vector: Vec<i32> = Vec::new();
-  let mut vector2 = vec![1, 2, 3, 4];
+  // Open the file
+  let mut file = File::open("info.txt").expect("Can't open the file");
 
-  println!("{}", vector2[3]);
+  // Create new string variable
+  let mut contents = String::new();
 
-  vector2.push(49);
-  // Remove elemento form vector, pass the index
-  vector2.remove(1); // Remove 2
+  // Read the file
+  file.read_to_string(&mut contents)
+    .expect("Can not read the file");
 
-  for number in vector2.iter() {
-    println!("{}", number);
-  }
+  // Print the content of file
+  println!("File contents:\n\n{}", contents);
+
 }
