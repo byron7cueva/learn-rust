@@ -1,35 +1,19 @@
-// Implements
-
-struct Rectangle {
-  width: i32,
-  height: i32
-}
-
-// Permite implementar metodos a una estructura
-
-impl Rectangle {
-
-  // self hace referencia a la instancia de la estructura
-  fn print_description (&self) {
-    println!("Rectangle {} x {}", self.width, self.height);
-  }
-
-  fn area(&self) -> i32 {
-    (self.height * self.height) / 2
-  }
-
-  fn is_square(&self) -> bool {
-    self.width == self.height
-  }
-}
+// String
 
 fn main () {
-  let my_rec = Rectangle {
-    width: 10,
-    height: 5
-  };
+  let mut my_string = String::from("My name is Byron");
 
-  my_rec.print_description();
-  println!("The area is: {}", my_rec.area());
-  println!("The retangle is square {}", my_rec.is_square());
+  // Length
+  println!("Length: {}", my_string.len());
+
+  // Is empty
+  println!("Is empty? {}", my_string.is_empty());
+
+  for token in my_string.split_whitespace() {
+    println!("{}", token);
+  }
+
+  println!("Does the string contain 'Byr'? {}", my_string.contains("Byr"));
+  my_string.push_str(" Wellcome");
+  println!("{}", my_string);
 }
