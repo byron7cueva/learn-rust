@@ -1,19 +1,28 @@
-// Pass by reference
-
-struct Color {
-  red: u8,
-  green: u8,
-  blue: u8
-}
+// Array
 
 fn main () {
-  let blue = Color { red: 0, green: 0, blue: 255};
-  // Pasando parametro por referencia
-  print_color(&blue);
-  print_color(&blue);
-}
+  let numbers = [1, 2, 3, 4, 5];
 
-// Parametro por referencia
-fn print_color (c: &Color) {
-  println!("Color R{}, G{}, B{}", c.red, c.green, c.blue);
+  for n in numbers.iter() {
+    println!("{}", n);
+  }
+
+  for i in 0..numbers.len() {
+    println!("{}", numbers[i]);
+  }
+
+  // Definiendo un array de enteros de 5 elementos
+  let numbers2: [i32; 5] = [1, 2, 3, 4, 5];
+
+  for n in numbers2.iter() {
+    println!("{}", n);
+  }
+
+  // Creando un array de 100 elementos que en cada posicion tenga 2 como valor
+  let numbers3 = [2; 100];
+
+  for n in numbers3.iter() {
+    println!("{}", n);
+  }
+
 }
