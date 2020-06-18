@@ -1,23 +1,17 @@
-// trait
-// This is similar to interface in Java
-
-struct Person {
-  name: String,
-  age: u8
-}
-
-// ToString is trait
-impl ToString for Person {
-  fn to_string(&self) -> String {
-    return format!("My name is {} and I am {}.", self.name, self.age);
-  }
-}
+// Vector
 
 fn main () {
-  let byron = Person {
-    name: String::from("Byron"),
-    age: 30
-  };
+  // Create a vector
+  let vector: Vec<i32> = Vec::new();
+  let mut vector2 = vec![1, 2, 3, 4];
 
-  println!("{}", byron.to_string());
+  println!("{}", vector2[3]);
+
+  vector2.push(49);
+  // Remove elemento form vector, pass the index
+  vector2.remove(1); // Remove 2
+
+  for number in vector2.iter() {
+    println!("{}", number);
+  }
 }
