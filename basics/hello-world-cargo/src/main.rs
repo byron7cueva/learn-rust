@@ -1,22 +1,17 @@
-// References
-// COn el simbolo & se realiza una referencia a una variable
+// Structs
+
+struct Color {
+  red: u8, // u8: 0 - 255
+  green: u8,
+  blue: u8
+}
 
 fn main () {
-  let mut x = 10;
+  // Create a object of type Color
+  // let bg = Color { red: 255, green: 70, blue: 20 };
+  let mut bg = Color { red: 255, green: 70, blue: 20 };
+  let fc: Color = Color { red: 255, green: 70, blue: 20 };
 
-  // Creando una referencia
-  // No puede afectar el valor
-  //let xr = & x;
-  // Referencia mutable
-  // let xr = &mut x;
-  // *xr = 11;
-  //let dom = & x;
-  // println!("The value to x is {}", x); // Da error
-
-  {
-    let xr = &mut x;
-    *xr = 11;
-    println!("The value to x is {}", xr);
-  }
-  println!("The value to x is {}", x);
+  bg.red = 15;
+  println!("{}, {}, {}", bg.red, bg.green, bg.blue);
 }
