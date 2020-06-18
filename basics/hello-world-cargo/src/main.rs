@@ -1,39 +1,23 @@
-// Defining Traits
-
-// Create the struct Person
-struct Person {
-  name: String,
-  age: u8
-}
-
-// Create contract o interface
-trait HasVoiceBox {
-  // Speak
-  fn speak(&self);
-  // Check if can speak
-  fn can_speak(&self) -> bool;
-}
-
-// Implements the trait
-impl HasVoiceBox for Person {
-
-  fn speak(&self) {
-    println!("Hello my name is {}", self.name);
-  }
-
-  fn can_speak(&self) -> bool {
-    if self.age > 1 {
-      return true;
-    }
-    return false;
-  }
-}
-
 fn main () {
-  let person = Person {
-    name: String::from("Byron"),
-    age: 30
-  };
+  let number = 2;
 
-  println!("Can {} speak? {}", person.name, person.can_speak());
+  // Funciona similar al switch
+  match number {
+    // Si number es igual a 1
+    1 => println!("It is one"),
+    2 => println!("It is two"),
+    // Si number es igual a 10 o 11
+    10 | 11 => println!("It is ten or eleven"),
+    // Cuando no cumple algun caso
+    20...30 => println!("It is between 20 to 30"), // Esto ya esta deprecado
+    _ => println!("It doesn't match")
+  }
+
+  let name = "Byron";
+
+  match name {
+    "Luis" => println!("Your name is Luis"),
+    "Carlos" => println!("Your name is Carlos"),
+    _ => println!("Don't know your name")
+  }
 }
