@@ -1,53 +1,43 @@
-// Strings
+// Funtions return a value
+// Procedures do not return a value
 #[allow(unused_variables)] // I don't have warnings about unused vars
-#[allow(unused_assignments)] // I don't have warnings about unused assignments
+
 
 fn main () {
-  // &str is more complex
-  // Immutable
-  // Often allocated on the stack, sometime a heap references, sometime embedded in the code
-  let example_str: &str = "Hello";
+  let returned_data = some_function(2.2, 50);
+  println!("resturned_data is: {}", returned_data);
+  some_str_procedure("test");
 
-  // String -> Heap and Mutable
-  let example_string: String = String::from("Hello");
+  let string_slice_var: &str = "Hello";
+  some_str_procedure(string_slice_var);
 
-  let string_from_str: String = example_str.to_string();
-  let string_from_str2: String = "Some hardcode string".to_string();
+  let string_var = String::from("I'm a real string");
+  some_str_procedure(&string_var);
 
+  some_string_procedure(string_var);
+}
 
-  let string_from_harcoded = String::from("Some harcoded");
-  let string_from_str_var = String::from(example_str);
-
-  // Conversion directa
-  let str_from_string: &str = &example_string;
-
-  // Combined strings
-  let combined_string_literals = ["first", "second"].concat();
-  let combined_with_format_macro = format!("{} {}", "first", "second");
-  // let string_plus_str = example_string + example_str;
-  let mut mut_string = String::new();
-  mut_string.push_str(example_str);
-  mut_string.push_str("Some harcode literal");
-  mut_string.push('m');
-  mut_string.push('e');
-
-  let a = String::from("a");
-  let b = String::from("b");
-  let combined = a + &b + &mut_string;
-
-  let str_from_substring: &str = &example_str[0..2];
-  let str_from_substring2: &str = &example_str[0..=2]; // Include de caracter un position 2
-
-  // Get char of index
-  let char_by_index = &example_str.chars().nth(1);
-
-  match char_by_index {
-    Some(c) => println!("Found a char {}", c),
-    None => {}
+#[allow(dead_code)] // I don't have warnings about function don't use
+fn some_function(param_a: f32, param_b: i128) -> f32 {
+  println!("I'm in some_function!");
+  // 10.1 // No semicolon means this is what's returned by the function
+  if param_a < 100. {
+    let return_var = 10.1 * param_a + param_b as f32;
+    return_var
+  } else {
+    -1.
   }
+}
 
-  if let Some(c) = example_str.chars().nth(1) {
-    println!("Found a char {}", c);
-  }
+#[allow(dead_code)] // I don't have warnings about function don't use
+fn some_procedure(param_a: f32, param_b: i8) {
+  println!("I'm in some_procedura with a {} b {}", param_a, param_b);
+}
 
+fn some_str_procedure(param: &str) {
+  println!("I'm in some_str_procedure with param {}", param);
+}
+
+fn some_string_procedure(param: String) {
+  println!("I'm in some_string_procedure with param {}", param);
 }
