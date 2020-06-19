@@ -1,24 +1,21 @@
+//HTTP Get request
+use reqwest;
+use tokio;
 
-
-fn main () {
-  let name = String::from("Byron");
-
-  println!("Character at index 8: {}", match name.chars().nth(1){
-    Some(c) => c.to_string(),
-    None => "No character at index 8!".to_string()
-  });
-
-
-  println!("Occupation is {}", match get_occupation("Carlos") {
-    Some(o) => o,
-    None => "No ocupation found"
-  });
+#[tokio::main]
+async fn main () -> Result<(), reqwest::Error>{
+  get().await?;
+  Ok(())
 }
 
-fn get_occupation(name: &str) -> Option<&str> {
-  match name {
-    "Byron" => Some("Software Developer"),
-    "Luis" => Some("Dentist"),
-    _ => None
-  }
+async fn get () -> Result<(), reqwest::Error> {
+  let response = reqwest::get("https://hyper.rs").await?;
+
+  println!("Status: {}", response.status());
+
+  let body = response.text().await?;
+
+  println!("Body:\n\n{}", body);
+
+  Ok(())
 }
