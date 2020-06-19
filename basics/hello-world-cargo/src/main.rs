@@ -1,21 +1,27 @@
-//HTTP Get request
-use reqwest;
-use tokio;
+// Enum methods
+#![allow(dead_code)] // Para ignorar opciones del enum que no se esten utilizando
 
-#[tokio::main]
-async fn main () -> Result<(), reqwest::Error>{
-  get().await?;
-  Ok(())
+enum Day {
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday
 }
 
-async fn get () -> Result<(), reqwest::Error> {
-  let response = reqwest::get("https://hyper.rs").await?;
+impl Day {
+  fn is_weekday(&self) -> bool {
+    match self {
+      &Day::Saturday | &Day::Sunday => return false,
+      _ => return true
+    }
+  }
+}
 
-  println!("Status: {}", response.status());
+fn main () {
+  let d = Day::Saturday;
 
-  let body = response.text().await?;
-
-  println!("Body:\n\n{}", body);
-
-  Ok(())
+  println!("Is day weekday: {}", d.is_weekday());
 }
