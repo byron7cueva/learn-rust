@@ -1,43 +1,52 @@
-// Funtions return a value
-// Procedures do not return a value
-#[allow(unused_variables)] // I don't have warnings about unused vars
-
+#[allow(unused_variables)]
 
 fn main () {
-  let returned_data = some_function(2.2, 50);
-  println!("resturned_data is: {}", returned_data);
-  some_str_procedure("test");
+  let some_bool = true;
+  let some_int = 30;
+  let some_int2 = 50;
 
-  let string_slice_var: &str = "Hello";
-  some_str_procedure(string_slice_var);
-
-  let string_var = String::from("I'm a real string");
-  some_str_procedure(&string_var);
-
-  some_string_procedure(string_var);
-}
-
-#[allow(dead_code)] // I don't have warnings about function don't use
-fn some_function(param_a: f32, param_b: i128) -> f32 {
-  println!("I'm in some_function!");
-  // 10.1 // No semicolon means this is what's returned by the function
-  if param_a < 100. {
-    let return_var = 10.1 * param_a + param_b as f32;
-    return_var
+  if some_bool == true || (some_int > 100 && some_int2 == 200) {
+    println!("It is true");
+  } else if some_int == 30 {
+    println!("Else if");
   } else {
-    -1.
+    println!("It is false");
   }
-}
 
-#[allow(dead_code)] // I don't have warnings about function don't use
-fn some_procedure(param_a: f32, param_b: i8) {
-  println!("I'm in some_procedura with a {} b {}", param_a, param_b);
-}
+  // No use semicolon for return value
+  let var_from_inline = if some_int == 9 { 300 } else { 400 };
 
-fn some_str_procedure(param: &str) {
-  println!("I'm in some_str_procedure with param {}", param);
-}
+  let var_from_inline2 = if some_int == 9 { 
+    300 // return this value
+  } else if some_int2 == -3 {
+    println!("Test");
+    0
+  } else {
+    400
+  };
 
-fn some_string_procedure(param: String) {
-  println!("I'm in some_string_procedure with param {}", param);
+  match some_bool {
+    true => {
+      println!("Its true");
+    }
+    false {
+      println!("Its false");
+    }
+  }
+
+  match some_int {
+    0 => println!("Hit 0 brach"),
+    1..=100 => println!("Between 1 and 100 branch"),
+    _ => println!("Else branch")
+  }
+
+  let var_from_match = match some_bool { true => 10, false => 20 };
+
+  let var_from_match2 = match some_int {
+    0 => 0,
+    1 | 2 => 100,
+    _ => 200
+  };
+
+  
 }
