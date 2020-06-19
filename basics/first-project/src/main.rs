@@ -1,52 +1,31 @@
+// Tuples
 #[allow(unused_variables)]
 
 fn main () {
-  let some_bool = true;
-  let some_int = 30;
-  let some_int2 = 50;
+  // Las tupas pueden contener tuplas
+  let some_tuple = (2, 3.4, "a", "b".to_string(), 'c', (1.1, 2.2));
+  println!("My data is  {} {}", some_tuple.0, some_tuple.1);
+  println!("My full tuple is {:?}", some_tuple);
+  let some_val = (some_tuple.5).1;
 
-  if some_bool == true || (some_int > 100 && some_int2 == 200) {
-    println!("It is true");
-  } else if some_int == 30 {
-    println!("Else if");
-  } else {
-    println!("It is false");
+  let some_color = get_some_rgb();
+  println!("Green is {}", some_color.1);
+
+  let (my_red, my_green, my_blue) = some_color;
+  println!("r {}, g {}, b {}", my_red, my_green, my_blue);
+
+  // rgb or argb?
+  let some_other_color: (u8, u8, u8, u8) = (0, 100, 150, 255);
+  // Empty tuple
+  let empty_tuple = ();
+
+  match some_color.2 {
+    0..=200 => println!("blah"),
+    _ => ()
   }
+}
 
-  // No use semicolon for return value
-  let var_from_inline = if some_int == 9 { 300 } else { 400 };
-
-  let var_from_inline2 = if some_int == 9 { 
-    300 // return this value
-  } else if some_int2 == -3 {
-    println!("Test");
-    0
-  } else {
-    400
-  };
-
-  match some_bool {
-    true => {
-      println!("Its true");
-    }
-    false {
-      println!("Its false");
-    }
-  }
-
-  match some_int {
-    0 => println!("Hit 0 brach"),
-    1..=100 => println!("Between 1 and 100 branch"),
-    _ => println!("Else branch")
-  }
-
-  let var_from_match = match some_bool { true => 10, false => 20 };
-
-  let var_from_match2 = match some_int {
-    0 => 0,
-    1 | 2 => 100,
-    _ => 200
-  };
-
-  
+// Funcion que retorna una tupla
+fn get_some_rgb() -> (u8, u8, u8) {
+  (255, 20, 30)
 }
