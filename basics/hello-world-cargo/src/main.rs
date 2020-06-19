@@ -1,23 +1,21 @@
+// Reading user input
+
+use std::io;
+
 fn main () {
-  let number = 2;
+  let mut input = String::new();
 
-  // Funciona similar al switch
-  match number {
-    // Si number es igual a 1
-    1 => println!("It is one"),
-    2 => println!("It is two"),
-    // Si number es igual a 10 o 11
-    10 | 11 => println!("It is ten or eleven"),
-    // Cuando no cumple algun caso
-    20...30 => println!("It is between 20 to 30"), // Esto ya esta deprecado
-    _ => println!("It doesn't match")
-  }
+  println!("Hi! Say something");
 
-  let name = "Byron";
-
-  match name {
-    "Luis" => println!("Your name is Luis"),
-    "Carlos" => println!("Your name is Carlos"),
-    _ => println!("Don't know your name")
+  match io::stdin().read_line(&mut input) {
+    // Cuando el ingreso es correcto
+    Ok(_) => {
+      // println!("Success, You said: {}", input);
+      println!("Success, You said: {}", input.to_uppercase());
+    },
+    // Cuando ocurre un error en el ingreso de datos
+    Err(e) => {
+      println!("Oops! Something went wrong {}", e);
+    }
   }
 }
