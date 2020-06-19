@@ -1,17 +1,22 @@
-// Regular Expresion
-use regex::Regex;
+// Modules
+mod modulo {
+  pub fn print_message () {
+    message();
+    println!("How's it going");
+  }
+
+  fn message () {
+    println!("This is message");
+  }
+
+  pub mod water {
+    pub fn print_message_water () {
+      println!("I'm water");
+    }
+  }
+}
 
 fn main () {
-  // let re = Regex::new(r"\d");
-  // let re = Regex::new(r"\w{5}").unwrap();
-  let re = Regex::new(r"(\w{5})").unwrap();
-  let text = "byron";
-
-  println!("Found match? {}", re.is_match(text));
-
-  match re.captures(text) {
-    // Some(caps) => println!("Find mach: {}", caps.get(0).unwrap().as_str()),
-    Some(caps) => println!("Find mach: {}", &caps[0]),
-    None => println!("Could not find match")
-  }
+  modulo::print_message();
+  modulo::water::print_message_water();
 }
