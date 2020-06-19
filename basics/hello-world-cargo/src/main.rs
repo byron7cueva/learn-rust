@@ -1,50 +1,33 @@
-// Test
+use serde_json::Value as JsonValue;
+use serde::{Serialize, Deserialize};
 
-struct Rectangle {
-  width: u8,
-  height: u8
-}
-
-impl Rectangle {
-  fn is_square(&self) -> bool {
-    self.width == self.height
-  }
+#[derive(Serialize, Deserialize)]
+struct Person {
+  name: String,
+  age: u8,
+  is_male: bool
 }
 
 fn main () {
+  let json_str = r#"
+    {
+      "name": "Byron",
+      "age": 30,
+      "is_male": true
+    }
+  "#;
 
-}
+  let res = serde_json::from_str(json_str);
 
-fn give_two() -> i32 {
-  2
-}
-
-#[cfg(test)]
-mod tests {
-  #[test] // Indicar una funcion test
-  #[should_panic] // Indicando que puede generar error
-  fn test_basic () {
-    assert!(1 == 1); // Ok
-    panic!("Oh no"); // Fail the test
-  }
-
-  #[test]
-  // #[ignore] // Para ignorar test
-  fn test_equals() {
-    assert_eq!(2, 1 + 1);
-    assert_ne!(2, 1 + 2);
-    assert_eq!(super::give_two(), 1 + 1 );
-  }
-
-
-  #[test]
-  #[should_panic] // Para dejar pasar los errores
-  fn test_structs() {
-    let r = super::Rectangle {
-      width: 50,
-      height: 25
-    };
-
-    assert!(r.is_square());
+  if res.is_ok() {
+    // let p: JsonValue = res.unwrap();
+    // println!("The name is {}", p["name"]);
+    // println!("The name is {}", p["name"].as_str().unwrap());
+    let p: Person = res.unwrap();
+    println!("The name is {}", p.name);
+    println!("The age is {}", p.age);
+    println!("Is male {}", p.is_male);
+  } else {
+    println!("Sorry! Could not pase JSON");
   }
 }
