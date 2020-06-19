@@ -11,3 +11,9 @@ cargo new nombre-project --bin
 ```bash
 cargo run
 ```
+
+## Correr test
+
+```bash
+cargo test
+```
