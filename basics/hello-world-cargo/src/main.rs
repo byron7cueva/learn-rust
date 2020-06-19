@@ -1,33 +1,11 @@
-// Hash Map
-
-use std::collections::HashMap;
+// Random
+use rand::{thread_rng, Rng};
 
 fn main () {
-  let mut marks = HashMap::new();
+  let mut rng = thread_rng();
+  let random_number: u32 = rng.gen_range(1, 11); // Numero randon entre 1-10
+  println!("The random number is: {}", random_number);
 
-  // Add values
-  marks.insert("Rust programing", 7);
-  marks.insert("Web Development", 9);
-  marks.insert("UX Designer", 8);
-  marks.insert("UI Designer", 10);
-
-  // Find lenght of hasmap
-  println!(" How many subject have you studied? {}", marks.len());
-
-  // Get a single value
-  match marks.get("Web Development") {
-    Some(mark) => println!("You got {} for Web Dev", mark),
-    None => println!("You didn't study  Web Development")
-  }
-
-  // Remove a value
-  marks.remove("UX Designer");
-
-  // Loop through HashMap
-  for (key, value) in &marks {
-    println!("For {} you got {}", key, value);
-  }
-
-  // Check for value
-  println!("Did you study C++? {}", marks.contains_key("C++ Programing"));
+  let random_bool: bool = rng.gen_bool(1.0 / 3.0);
+  println!("Random boolean is {}", random_bool);
 }
