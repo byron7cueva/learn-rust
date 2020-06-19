@@ -1,39 +1,53 @@
+// Strings
 #[allow(unused_variables)] // I don't have warnings about unused vars
 #[allow(unused_assignments)] // I don't have warnings about unused assignments
 
 fn main () {
-  // The convention is all lowercase separate with _
-  // The varianles by default is inmutable
-  // let some_data: bool = true; // Boolean data type
-  // some_data = false; // Esto da un error ya qu no es mutable
+  // &str is more complex
+  // Immutable
+  // Often allocated on the stack, sometime a heap references, sometime embedded in the code
+  let example_str: &str = "Hello";
 
-  let some_number: i8 = 10; // from -128 to +127
-  println!("Min i8 is {}", std::i8::MIN);
-  println!("Max i8 is {}", std::i8::MAX);
+  // String -> Heap and Mutable
+  let example_string: String = String::from("Hello");
 
-  // let dougs_test = some_number + 120; // 130, witch is greater than the max 128
-  // println!("{}", dougs_test); // This will panic, which means crash
+  let string_from_str: String = example_str.to_string();
+  let string_from_str2: String = "Some hardcode string".to_string();
 
-  /* let some_number2: u8 = 10; // from 0 to 255
-  let some_other_number = 255 + some_number2; // Error too big
-  let some_other_number2 = 1 - some_number2; // Error Too small */
 
-  // Integer (+/-) i8, i16, i32, i64, i128
-  // Unsigned u8, u16, u32, u64, u128
-  // Architecture Dependent: isize and usize
-  let some_number3: i128 = 10; //
-  println!("Min i128 is: {}", std::i128::MIN);
-  println!("Max i128 is: {}", std::i128::MAX);
+  let string_from_harcoded = String::from("Some harcoded");
+  let string_from_str_var = String::from(example_str);
 
-  let some_number = 10; // By default set i32
+  // Conversion directa
+  let str_from_string: &str = &example_string;
 
-  let some_isize: isize = 10; // dependes on wheter your computer is 32 bits or 64 bits
-  let some_uisize: usize = 10; // same here
+  // Combined strings
+  let combined_string_literals = ["first", "second"].concat();
+  let combined_with_format_macro = format!("{} {}", "first", "second");
+  // let string_plus_str = example_string + example_str;
+  let mut mut_string = String::new();
+  mut_string.push_str(example_str);
+  mut_string.push_str("Some harcode literal");
+  mut_string.push('m');
+  mut_string.push('e');
 
-  // Floating f32, f64
-  let some_number4: f32 = 10.; // Don't forget the dot somewhere in the number
-  let some_number5 = 10.; // By default ser f64
+  let a = String::from("a");
+  let b = String::from("b");
+  let combined = a + &b + &mut_string;
 
-  // Charts 4 bits
-  let some_char: char = 'a';
+  let str_from_substring: &str = &example_str[0..2];
+  let str_from_substring2: &str = &example_str[0..=2]; // Include de caracter un position 2
+
+  // Get char of index
+  let char_by_index = &example_str.chars().nth(1);
+
+  match char_by_index {
+    Some(c) => println!("Found a char {}", c),
+    None => {}
+  }
+
+  if let Some(c) = example_str.chars().nth(1) {
+    println!("Found a char {}", c);
+  }
+
 }
