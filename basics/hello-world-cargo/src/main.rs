@@ -1,27 +1,21 @@
-// Enum methods
-#![allow(dead_code)] // Para ignorar opciones del enum que no se esten utilizando
-
-enum Day {
-  Monday,
-  Tuesday,
-  Wednesday,
-  Thursday,
-  Friday,
-  Saturday,
-  Sunday
-}
-
-impl Day {
-  fn is_weekday(&self) -> bool {
-    match self {
-      &Day::Saturday | &Day::Sunday => return false,
-      _ => return true
-    }
-  }
-}
+// Execute comands
+use std::process::Command;
 
 fn main () {
-  let d = Day::Saturday;
+  // python util.py
+  // Se debe pasar el nombre del comando a ejecutar
+  let mut cmd = Command::new("python");
+  cmd.arg("util.py");
 
-  println!("Is day weekday: {}", d.is_weekday());
+  //Execute comand
+  match cmd.output() {
+    Ok(o) => {
+      unsafe {
+        println!("Output: {}", String::from_utf8_unchecked(o.stdout));
+      }
+    },
+    Err(e) => {
+      println!("There was an error: {}", e);
+    }
+  }
 }
