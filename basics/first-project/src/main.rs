@@ -1,84 +1,75 @@
-mod random_info;
-use random_info::*;
-
-// struct, trait, impl
-
-#[allow(dead_code)]
-#[derive(Debug, Clone)] // Implementando macros
-struct DougsData {
-  some_int: i32,
-  some_float: f64,
-  some_bool: bool,
-  random: RandomInfo
+// Enumaration
+/* enum Payment {
+  Cash,
+  CreditCard,
+  DebitCard,
 }
 
-impl RandomInfo {
-  pub fn is_larger(&self, compare_to: i64) -> bool {
-    self.some_int > compare_to
-  }
-}
-
-// Polimorfismo
-impl SomeTrait for DougsData {
-  fn is_valid(&self) -> bool {
-    true
-  }
-}
-
-fn print_if_is_valid(check_me: &dyn SomeTrait) {
-  if check_me.is_valid() {
-    println!("Yay!");
-  }
-}
-
-// Default
-impl Default for DougsData {
-  fn default() -> Self {
-    Self {
-      some_bool: true,
-      some_float: 10.3,
-      some_int: 80,
-      random: RandomInfo::new(true),
-    }
-  }
-}
-
-#[allow(unused_variables)]
 fn main () {
-  let mut dougs_var: DougsData = DougsData {
-    some_bool: true,
-    some_float: 10.3,
-    some_int: 80,
-    random: RandomInfo {
-      call_count: 0,
-      some_bool: true,
-      some_int: 10
+  let some_payment = Payment::Cash;
+
+  match some_payment {
+    Payment::Cash => {
+      println!("Paying with cash...");
     }
-  };
+    Payment::CreditCard => {
+      println!("Paying with credit card...");
+    }
+    /* Payment::DebitCard => {
+      println!("Paying with debit card...");
+    }*/
+    _ => {}
+  }
+}*/
 
-  dougs_var.some_int = 100;
+enum Payment {
+  Cash(f32), // Value
+  CreditCard(String, f32), // Tuple
+  DebitCard(DebitData), // Struct
+  Crypto{account_id: String, amount: f32},
+}
 
-  let dougs_var_2 = DougsData {
-    some_int: 200,
-    random: RandomInfo::new(false),
-    ..dougs_var
-  };
+struct DebitData {
+  pub card_number: String,
+  pub amount: f32
+}
 
-  let dougs_var_3 = DougsData::default();
-  // #[derive(Debug)] Se debe agregar a la estructura
-  println!("{:?}", dougs_var_3);
+fn main () {
+  let some_payment = Payment::Cash(100.);
+  proccess_payment(some_payment);
 
+  let cc_payment = Payment::CreditCard("CC Num".to_string(), 250.);
+  proccess_payment(cc_payment);
 
-  let mut random_info_var = RandomInfo {
-    call_count: 0,
-    some_bool: true,
-    some_int: 10
-  };
+  let debit_payment = Payment::DebitCard(DebitData {
+    card_number: "Debit num".to_string(),
+    amount: 100.,
+  });
+  proccess_payment(debit_payment);
 
-  let is_this_smaller = random_info_var.is_smaller(9);
-  let is_this_large = random_info_var.is_larger(20);
-  let is_valid = random_info_var.is_valid();
+  let crypto_payment = Payment::Crypto{account_id: "abc 123".to_string(), amount: 20.};
+  proccess_payment(crypto_payment);
+}
 
-  print_if_is_valid(&random_info_var);
-  print_if_is_valid(&dougs_var);
+fn proccess_payment(some_payment: Payment) {
+  match some_payment {
+    Payment::Cash(amt) => {
+      println!("Paying with cash... in the amount of {}", amt);
+    }
+    /* Payment::CreditCard(dsc, amt) => {
+      println!("Paying with credit card... Desc is {} and amount is {} ", dsc, amt);
+    } */
+    /* Payment::CreditCard(dsc, _amt) => { //Poniendole _amt no valida si se esta utilizando el parametro
+      println!("Paying with credit card... Desc is {}", dsc);
+    } */
+    Payment::CreditCard(dsc, _) => { //Poniendole _ no valida que le hace falta otro parametro de usar
+      println!("Paying with credit card... Desc is {}", dsc);
+    }
+    Payment::DebitCard(data) => {
+      println!("Paying with debit card... card_number {}, amount {}", data.card_number, data.amount);
+    }
+    Payment::Crypto{account_id, amount} => {
+      println!("Paying with crypto... account_id {}, amount {}", account_id, amount);
+    }
+  }
 }
