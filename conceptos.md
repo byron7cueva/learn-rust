@@ -2,6 +2,12 @@
 
 Rust es un lenguaje compilado
 
+Tiene tres canales: Release, Beta y Nigthly. www.whatrustisit.com, para ver las versiones disponibles en cada canal.
+*Creat* Se les llama a las dependencias
+
+*rustfmt:* Es el formateador de rust.
+*Clippy:* Es el linter de Rust.
+
 ## Cargo
 
 Es el gestor de paquetes y sistema de compilacion de Rust.
@@ -49,8 +55,17 @@ cargo build --release
 
 Generar con optimizaciones para ser desplegado. Genera otra carpeta release
 
-```
+```bash
 cargo run --release
 ```
 
 Correr en modo release
+
+
+## Rust Playground
+
+Es una aplicacion web donde permite probar codigo de Rus, tambipen compartir código.
+Tambien nos permite acceder a los 100 creats mas descargados.
+
+*Miri* Para buscar problemas de undefined behavior.
+*Expand macros:* Permiten ver las macros y ver como se comportan.
