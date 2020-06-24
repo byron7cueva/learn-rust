@@ -11,6 +11,11 @@ Tiene tres canales: Release, Beta y Nigthly. www.whatrustisit.com, para ver las 
 ## Cargo
 
 Es el gestor de paquetes y sistema de compilacion de Rust.
+Permite crear nuevos proyectos. Se debe nombrar a un proyecto con minúsculas y separado con raya baja.
+Actualizar las dependencias
+Correr pruebas unitarias y de integracion
+Publicar el paquete en creats
+Documentacion: doc.rust-lang.org/cargo/commands/index.html
 
 ### Estructura
 
@@ -61,6 +66,44 @@ cargo run --release
 
 Correr en modo release
 
+#### Test
+
+Correr un test
+
+```bash
+cargo test
+```
+
+#### Documentacion
+
+Generar documentacion
+
+```bash
+cargo doc
+```
+
+#### Publicar
+
+Publicar crate
+
+```bash
+cargo publ
+```
+
+#### Nuevo Proyecto
+
+Creando un proyecto bin
+
+```bash
+cargo new nombre_proyecto
+```
+
+Creando un proyecto lib
+
+```bash
+cargo new nombre_lib_project --lib
+```
+
 
 ## Rust Playground
 
@@ -69,3 +112,47 @@ Tambien nos permite acceder a los 100 creats mas descargados.
 
 *Miri* Para buscar problemas de undefined behavior.
 *Expand macros:* Permiten ver las macros y ver como se comportan.
+
+## Rustup
+
+Administra la version de rust que se esta utilizando (Toolchain)
+
+### Instalar una version
+
+```bash
+rustup install *.*.*
+```
+
+Instalar una version beta
+
+```bash
+rustup install beta
+```
+
+Instalar una version nightly
+
+```bash
+rustup install nightly
+```
+
+Instalar una version estable
+
+```bash
+rustup install stable
+```
+
+### Cambiar version por defecto
+
+Cambiar la version que se esta utilizando por defecto
+
+```bash
+rustup default *.*.*
+```
+
+### Desinstalar
+
+Desinstalara una version
+
+```bash
+rustup uninstall *.*.*
+```
