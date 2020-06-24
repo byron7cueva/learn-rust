@@ -1,144 +1,117 @@
-// Con el signo de admiracion !, ejemplo: println!(), estas son macros
-// Las macros permiten definir un lenguaje a un dominio especifico
+// Lifetimes
 
-#[derive(Debug)]
-struct DougsStruct {
-  a: i32,
-  b: f64,
-  c: String
+const SOME_CONST_A: &str = "I'm a constant";
+const SOME_CONST_B: &str = "I'm a constant, too";
+
+struct DougsStruct<'a, 'b: 'a> { // 'b: a Indicando que el lifetime de b es el mismo que de a
+  some_data: Vec<i32>,
+  some_reference_data: &'a Vec<i32>,
+  some_reference_data2: &'b Vec<i32>
 }
 
-fn main () {
+fn main () { 
+  /* let a;
 
-  let entero: u8 = 5;
-  // Imprimir en formato del apuntador
-  println!("La direccion del entero es {:p}", &entero);
+  {
+    let b = String::from("Hello");
+    a = &b; // a no puede tomar prestada una referencia de b, ya que la vida de b solo depende de este scope
+  }
+  println!("{}", a); */
 
-  // STACk
-  // - Memoria rapida en crear y en recuperar.
-  // - La memoria es automaticamente liberada por el programa despues que las variables salen del scope
-  // - Es por defecto en rust
-  // - Variables de tamaño fijo. las colecciones no son basadas en stack, los Strings son un coleccion de u8
-  let stack_i8: i8 = 10;
-  let stack_f32: f32 = 10.0;
-  let stack_bool: bool = true;
-  let stack_char: char = 'a';
-
-  // HEAP
-  // - Es flexible
-  // - La memoria puede crecer en tamaño (Vector, HashMap, String, etc)
-  // - Tiene un costo en el performance
-  // - Esta memoria puede vivir mas alla que el scope en donde se la creo
-  // - La memoria es liberada automaticamente cuando el ultimo propietario sale del scope
-  let heap_vectos: Vec<i8> = Vec::new();
-  let heap_string: String = String::from("Hello");
-  let heap_i8: Box<i8> = Box::new(30);
-
-
-  // Las copias de stack no tiene mucho costo
-  let stack_i8_2 = stack_i8; // stack_i8 y stack_i8_2 son propietarios con diferente espacio de memoria
-  println!("{}", stack_i8);
-  println!("{}", stack_i8_2);
-
-  // En Rust un espacio de memoria tiene un dueño
-  // Solo puede haber un único propietario de la memoria a la vez
-  let heap_i8_2 = heap_i8; // El propietario del espacio de memoria es movido a heap_i8_2
-  // println!("{}", heap_i8); // Error heap_i8 ya no es propietario del espacio en memoria
-  println!("{}", heap_i8_2);
-
-  // Borrow (&)
-  // Prestamo como referencia
-  let heap_i8_3: Box<i8> = Box::new(20);
-  // Se puede clonar pero esto es costoso para HEAP
-  // let heap_i8_4 = heap_i8_3.clone(); // Crea una copia de memoria
-  let heap_i8_4 = &heap_i8_3;
+  let some_int_var = 10;
+  let resul_ref = get_int_ref2(&some_int_var); // Rust valida que se encuentre en el mismo scope la variable a la que se devuelve la referencia
+  println!("{}", resul_ref);
 
   //
-  let stack_f64: f64 = 1.;
-  let heap_f64: Box<f64> = Box::new(2.);
-  let heap_f64_2: Box<f64> = Box::new(2.);
-  let mut heap_f64_3: Box<f64> = Box::new(3.);
-  let heap_f64_4: Box<f64> = Box::new(4.);
+  let a: &str = "a";
+  // let greater = some_func2(a, SOME_CONST_B);
+  let greater = some_func2(SOME_CONST_A, SOME_CONST_B);
+  println!("{}", greater);
 
-  stack_procedure(stack_f64); // stack_f64 es copiado a param de la funcion
-  println!("In main stack {}", stack_f64); // No afecta a la variable lo que hizo en la funcion
+  //
+  let some_float_1  = 1.1;
+  let some_float_2: f64 = 2.2;
+  let result_float = get_smaller(&some_float_1, &some_float_2);
 
-  heap_procedure(heap_f64); // Se transfiere la propiedad de la memoria de heap:f64 a param
-  //println!("In main heap {}", heap_f64); // Error ya que se movio la propiedad del espacio de momoria
-
-  heap_procedure(heap_f64_2.clone()); // Tiene el mismo efecto que se produce con Stack, pero tiene mayor costo
-  // ya que se esta creando otro espacio de memoria
-  println!("In main heap {}", heap_f64_2);
-
-  // Se puede obtener nuevamente la referencia
-  // Pero esto no es recomendable si se aumentan los parametros
-  heap_f64_3 = heap_procedure2(heap_f64_3);
-  println!("In main heap {}", heap_f64_3);
-
-  // Borrow
-  // Solo un propietario de memoria a la vez
-  heap_procedure3(&heap_f64_4); // Pasadolo como una referencia prestada
-  println!("In main heap {}", heap_f64_4);
-
-
-  let some_string: String = String::from("Hello"); // Los estrings siempre estan en un heap
-  let some_str: &str = "Partner"; // &str Es un puntero ya sea para stack o heap
-  // let some_str3: str = "Partner"; // No se puede realizar esto ya que str siempre debe ser un apuntador &str
-  some_procedure(some_string, some_str);
-  // println!("{} {}", some_string, some_str); // Error ya que some_string es String y es un Heap y se movio la propiedad de memoria a la funcion
-
-  let some_string2: String = String::from("Hello");
-  let some_str2: &str = "Pather";
-  some_procedure2(&some_string2, some_str2);
-  println!("{} {}", some_string2, some_str2);
-
-
-  let var_a = String::from("Hello");
-  let var_b = &var_a;
-  let var_c = &var_a;
-  println!("{} {} {}", var_a, var_b, var_c);
-
-
-  let mut var_1 = DougsStruct { a: 9, b: 10., c: "a".to_string()};
-  struct_procedure(&mut var_1);
-  println!("{:?}", var_1);
+  let some_str_1  = "a";
+  let some_str_2 = "b";
+  let result_str = get_smaller(&some_str_1, &some_str_2);
 }
 
-/* fn stack_procedure(param: f64) {
-  println!("In stack_procedure with param {}", param);
+// No se puede retornar un referencia ya que el propietaario de la misma vive en el scope de la funcion
+/* fn get_int_ref () -> &i32 {
+  let a = 1;
+  &a
 } */
 
-// param tiene diferente localizacion de memoria por lo cual no afecta a la variable que se paso
-fn stack_procedure(mut param: f64) {
-  param += 9.;
-  println!("In stack_procedure with param {}", param);
+// Si puede retornar la referencia ya que no depende del scope de la funcion, si no que se la pasa como parametro
+fn get_int_ref2(param_1: &i32) -> &i32 {
+  param_1
 }
 
-// Al llamar a la funcion se pasa la propiedad del espacio de memoria a param
-// Este espacio de memoria se limpia al salir del de la funcion
-fn heap_procedure(param: Box<f64>) {
-  println!("Inheap_procedure with param {}", param);
+fn get_int_ref3<'a>(param_1: &'a i32) -> &'a i32 {
+  param_1
 }
 
-fn heap_procedure2(param: Box<f64>) -> Box<f64>{
-  println!("Inheap_procedure with param {}", param);
-  param
+// La funcion retorna una referencia prestada pero no sabe cual es el parametro prestado a retornan si param_1 o de param_2
+/* fn get_str_ref(param_1: &str, param_2: &str) -> &str {
+  if param_1 > param_2 {
+    param_1
+  } else {
+    param_2
+  }
+}*/
+
+fn get_str_ref<'a>(param_1: &'a str, param_2: &'a str) -> &'a str {
+  if param_1 > param_2 {
+    param_1
+  } else {
+    param_2
+  }
 }
 
-// Borrow (&)
-fn heap_procedure3(param: &Box<f64>) {
-  println!("In heap_procedure with param {}", param);
+#[allow(dead_code)]
+fn test_1(param_1: Vec<f64>) -> Vec<f64> { // Lifetimes no aplica ya que no tiene referencias de entrada y de salida
+  param_1
 }
 
-fn some_procedure(param_a: String, param_b: &str) {
-  println!("{} {}", param_a, param_b);
+#[allow(dead_code)]
+fn test_2(param_1: &Vec<f64>) -> Vec<f64> { // Lifetimes no genera problemas ya que no se retorna una referencia
+  param_1.clone()
 }
 
-fn some_procedure2(param_a: &String, param_b: &str) {
-  println!("{} {}", param_a, param_b);
+#[allow(dead_code)]
+fn test_3<'a>(param_1: &'a Vec<f64>) -> Vec<f64> { // Lifetimes no genera problemas ya que no se retorna una referencia
+  param_1.clone()
 }
 
-fn struct_procedure(param: &mut DougsStruct) {
-  param.a = 15;
-  println!("{:?}", param);
+/* #[allow(dead_code)]
+fn test_4(param_1: Vec<f64>) -> &Vec<f64> { // Genera un error ya que se genera la referencia del parametro que es el owner
+  &param_1
+} */
+
+/* #[allow(dead_code)]
+fn test_5<'a>(param_1: Vec<f64>) -> &'a Vec<f64> { // Genera un error ya que se genera la referencia pero le pertenece al scope de la funcion
+  &param_1 // Lifetime no se aplica ya que no es una referencia de entrada
+} */
+
+fn some_func() -> &'static str {
+  SOME_CONST_A
+}
+
+fn some_func2(param_1: &'static str, param_2: &'static str) -> &'static str {
+  if param_1 > param_2 {
+    param_1
+  } else {
+    param_2
+  }
+}
+
+// Genericos
+fn get_smaller<'a, T: std::cmp::PartialOrd>(param_1: &'a T, param_2: &'a T) -> &'a T {
+  if param_1 < param_2 {
+    param_1
+  } else {
+    param_2
+  }
 }
