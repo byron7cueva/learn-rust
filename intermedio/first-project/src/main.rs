@@ -1,41 +1,38 @@
-// Casting, Shadowing, constants and statics
+// Print and format macros
 #[allow(unused_variables)]
 
-// Constants
-const DOUGS_CONSTANT: i64 = 1000;
-
-// Statics
-static mut MY_STATIC_VARIABLE: i32 = 10;
+#[derive(Debug)] // Procedual Macro, se los utiliza como decoradores
+struct DougsData {
+  pub a: i32,
+  pub b: f32
+}
 
 fn main () {
-  let some_i32: i32 = 10;
-  let some_f64: f64 = 20.2;
+  // print
+  print!("Hello");
+  println!(" Patner");
 
-  // Casting
-  let combined = some_i32 + some_f64 as i32;
-  println!("{}", combined);
+  let more_data = 6.7;
+  println!("My data is {} and {}", 5, more_data);
+  println!("My data is {1} and {0}", 5, more_data); // Cambiando el orden de la impresion de los parametros
+  println!("My name is {first_name} {last_name}", first_name = "Byron", last_name = "Cueva");
 
-  // Shadowing
-  let var_a: i32 = 10;
+  let data = DougsData {
+    a: 1,
+    b: 1.1
+  };
 
-  {
-    println!("Dentro de un scope interno se puede ver fuera del scope de var_a {}", var_a);
-    let var_a: f32 = 20.222; // Se crea un variable totalmente diferente en el scope interno, no hace referencia a la que 
-    // se creo fuera de este scope, no afeact al scope de afuera
-    println!("Se puede sombrear con otro propietario dentro de este scope {}", var_a);
-  }
+  let other_data = DougsData {
+    a: 2,
+    b: 2.2
+  };
 
-  println!("La variable no fue afectada {}", var_a);
+  println!("Doug's data is {:?}", data);
+  println!("Doug's data is {:#?}", data);
+  println!("Doug's data is {:#?} and {:#?}", data, other_data);
+  println!("Doug's data is {1:#?} and {0:#?}", data, other_data);
 
-  // Constants
-  println!("Constant is {}", DOUGS_CONSTANT);
-  let circle_pi = std::f32::consts::PI;
-  println!("{}", circle_pi);
-
-  // Statics
-  // Se recomienda utilizar constantes
-  unsafe {
-    MY_STATIC_VARIABLE = 20;
-    println!("{}", MY_STATIC_VARIABLE);
-  }
+  // format! -> Declarative Macro
+  let some_formatted_string = format!("Doug's data is {1:#?} and {0:#?}", data, other_data);
+  println!("{}", some_formatted_string);
 }
