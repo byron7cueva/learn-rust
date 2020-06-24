@@ -4,4 +4,21 @@ version = "0.1.0"
 authors = ["Byron Cueva <byron7cueva@gmail.com>"]
 edition = "2018"
 
+# Con cargo build se descargan las dependencias
 [dependencies]
+rand = "0.7.3"
+# rand = "~0.7.3" Minima version 0.7.3, pero esta no incluye la version 0.8.0
+# rand = "~0.7" Minima version 0.7.*, pero esta no incluye la version 0.8.*
+# rand = "~0" Minima version 0.*.*, pero esta no incluye la version 1.*.*
+# rand = "<0.7.3"
+# rand = ">0.7.3"
+# rand = ">=0.7.3"
+# rand = { git = "https://github.com/rust-lang-nursery/rand.git"} Tambien se puede agregar asi una dependencia pero no se recomienda
+# rand = { path = "../../some_parent_folder/some_package_folder" } Dependencia local, debe ser una ruta relativa al archivo Cargo.toml
+# Para proyectos bin se recomienda incluir en el repositorio el archivo Cargo.lock
+# Para proyectos lib se recomienda excluir en el repositorio el archivo Cargo.lock
+# NO se debe cambiar manualmente el archivo Cargo.lock, este es generado automaaticamente
+
+# Dpendencias de desarrollo
+[dev-dependencies]
+pretty_assertions = "0.6.1"
