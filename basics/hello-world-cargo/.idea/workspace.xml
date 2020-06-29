@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="500fce39-0603-4cf6-a3f3-9b40418e7d27" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/for.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/for.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/if-else.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/if-else.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loop.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/loop.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/while.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/while.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +27,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../examples/basics" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
@@ -48,6 +45,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="429" y="226" key="FileChooserDialogImpl" timestamp="1593445518532">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="429" y="226" key="FileChooserDialogImpl/0.0.1280.800@0.0.1280.800" timestamp="1593445518532" />
     <state x="313" y="53" key="SettingsEditor" timestamp="1593444137967">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
