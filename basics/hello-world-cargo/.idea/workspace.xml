@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="500fce39-0603-4cf6-a3f3-9b40418e7d27" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/for.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/for.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/if-else.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/if-else.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/loop.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/loop.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/while.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/while.rs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="13bphkh3" />
+  </component>
+  <component name="ProjectId" id="1dzz2a8i6vCqeUupI6hwD4EFjYu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="500fce39-0603-4cf6-a3f3-9b40418e7d27" name="Default Changelist" comment="" />
+      <created>1593442502303</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1593442502303</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="313" y="53" key="SettingsEditor" timestamp="1593444137967">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="313" y="53" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1593444137967" />
+  </component>
+</project>

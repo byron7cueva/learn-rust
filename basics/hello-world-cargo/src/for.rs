@@ -1,3 +1,5 @@
+// for
+// Permite ejecutar un código para cada elemento de una colección
 fn main () {
   // Del 1 al 10
   for i in 1..11 { // Not inclusive
@@ -16,5 +18,10 @@ fn main () {
 
   for (index, a) in animals.iter().enumerate() {
     println!("The index is {} and the animal name is {}", index, a);
+  }
+
+  // Ir cuenta atras
+  for number in (1..4).rev() {
+    println!("{}", number);
   }
 }

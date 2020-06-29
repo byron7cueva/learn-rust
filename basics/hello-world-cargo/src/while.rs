@@ -1,5 +1,6 @@
 // While estructure control
 // Also use the break and continue into the while
+// Mientras una condicion es verdadera continua la ejecución de lo contrario sale del bucle
 
 fn main () {
   let mut n = 0;
