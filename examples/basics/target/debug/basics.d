@@ -1,1 +1,0 @@
-/run/media/byron/Projects/rust/learn-rust/examples/basics/target/debug/basics: /run/media/byron/Projects/rust/learn-rust/examples/basics/src/adivinanza.rs /run/media/byron/Projects/rust/learn-rust/examples/basics/src/fibonacci.rs /run/media/byron/Projects/rust/learn-rust/examples/basics/src/main.rs /run/media/byron/Projects/rust/learn-rust/examples/basics/src/temperatura.rs
