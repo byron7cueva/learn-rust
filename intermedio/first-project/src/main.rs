@@ -1,8 +1,36 @@
-// Print and format macros
-mod geo_map;
+// Struct
+struct User {
+  username: String,
+  email: String,
+  sign_in_count: u64,
+  active: bool
+}
 
 fn main () {
-  let my_favorite_place = geo_map::get_hawaii_loation();
+  let user1 = User {
+    email: String::from("user1@mail.com"),
+    username: String::from("user1"),
+    sign_in_count: 1,
+    active: true
+  };
 
-  println!("My favorite place is lat {} and long {}", my_favorite_place.lat, my_favorite_place.long);
+  // La sintaxis .. especifica que los campos restantes que no se han fijado explícitamente deben
+  // tener el mismo valor que los campos de la instancia indicada.
+  let user2 = User {
+    email: String::from("user2@mail.com"),
+    username: String::from("username"),
+    ..user1
+  };
+}
+
+// Construye un Usuario
+fn build_user(email: String, username: String) -> User {
+  // Debido a que el campo email y el parámetro email tienen el mismo nombre, sólo
+  // necesitamos escribir email en lugar de email: email
+  User {
+    email,
+    username,
+    active: true,
+    sign_in_count: 1
+  }
 }

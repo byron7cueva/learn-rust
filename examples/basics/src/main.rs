@@ -1,10 +1,13 @@
+mod fibonacci;
+mod temperatura;
+mod adivinanza;
+mod ownership;
+
 use crate::temperatura::{celsius_to_fahrenheit, fahrenheit_to_celsius};
 use crate::fibonacci::calcular_fibonnaci;
-use crate::adivinanza::adivinar;
-
-mod temperatura;
-mod fibonacci;
-mod adivinanza;
+// use crate::adivinanza::adivinar;
+use adivinanza::adivinar;
+use crate::ownership::{test_stack, test_heap};
 
 fn main() {
     let celsius: f64 = 37.;
@@ -18,4 +21,8 @@ fn main() {
     println!("El fibonacci es {}", result_fibonnacci);
 
     adivinar();
+
+    //Ownership
+    //test_stack();
+    // test_heap();
 }

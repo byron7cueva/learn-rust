@@ -1,7 +1,7 @@
 // Permite a Rust saber que usaremos la crate rand como una dependencia externa.
 // Esto también equivale a llamar a use rand, así que ahora podemos llamar a
 // cualquier cosa en la crate rand colocando rand::: delante de ella.
-extern crate rand;
+// extern crate rand; Ya no se necesita utilizar extern crate desde la version 2018
 // Incluyendo la libreria io en el ambito de la aplicacion
 // La biblioteca io proviene de la bibliotecs
 // use sirve para incluir en el ámbito de aplicación explícitamente un tipo que se desee utilizar
