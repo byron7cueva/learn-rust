@@ -1,107 +1,31 @@
-// Enumerados
-// Enums permite definir un tipo enumerando sus posibles valores
-// Definiremos y usaremos un enum para mostrar cómo se puede codificar el significado junto con los datos
-/* enum Payment {
-  // Las siguientes se las conoce como variantes del enum
-  Cash,
-  CreditCard,
-  DebitCard,
-}
+// Enum Option
+// Permite codificar el escenario muy común en el que un valor podría ser algo o podría ser nada
+// Rust no tiene la
+// propiedad Null. Null es un valor que significa que no hay valor. En lenguajes con nulo, las variables
+// siempre pueden estar en uno de dos estados: nulo o no nulo.
 
+// Rust no tiene nulos, pero sí tiene una enumeración que puede codificar el concepto de que un valor
+// está presente o ausente.
+// Esta enumeración es Option<T>, y está definida por la librería estándar
+
+// Sus variantes: puedes usar Some y None directamente sin el prefijo Option::
+// la variante Some del enum Option puede contener una pieza de datos de cualquier tipo
+// al utilizar genéricos
 fn main () {
-  // las variantes de la enumeración están en el namespace de su identificador y usamos los ::
-  let some_payment = Payment::Cash;
+  let some_number = Some(5);
+  let some_string = Some("a string");
+  // Si usamos None en vez de Some, necesitamos decirle a Rust qué tipo de Opción<T> tenemos,
+  // porque el compilador no puede inferir el tipo que tendrá la variante Some mirando sólo a un valor
+  // None.
+  // Cuando tenemos un valor None, en cierto sentido, significa lo mismo que nulo: no tenemos un
+  // valor válido
+  let absent_number: Option<i32> = None;
 
-  match some_payment {
-    Payment::Cash => {
-      println!("Paying with cash...");
-    }
-    Payment::CreditCard => {
-      println!("Paying with credit card...");
-    }
-    /* Payment::DebitCard => {
-      println!("Paying with debit card...");
-    }*/
-    _ => {}
-  }
-}*/
-
-enum Payment {
-  // Definiendo valores asociados a las variantes
-  Cash(f32), // Value
-  CreditCard(String, f32), // Tuple
-  DebitCard(DebitData), // Struct
-  Crypto{account_id: String, amount: f32},
-}
-
-struct DebitData {
-  pub card_number: String,
-  pub amount: f32
-}
-
-// Este código muestra que se puede poner cualquier tipo de datos dentro de una variante de enum:
-// cadenas, tipos numéricos o estructuras. Incluso puedes incluir otra enumeración.
-struct Ipv4Addr {}
-struct Ipv6Addr {}
-
-enum IpAddr {
-  v4(Ipv4Addr),
-  v6(Ipv6Addr)
-}
-
-// Definir un enum con variantes como estas es similar a definir diferentes tipos de estructuras,
-// excepto que el enum y todas las variantes se agrupan bajo el un tipo único
-enum Message {
-  Quit,
-  Move { x: i32, y: i32 },
-  Write(String),
-  ChangeColor(i32, i32, i32),
-}
-
-// También es posible implementar métodos sobre los enums
-impl Message {
-  fn call(&self) {
-    println!("Call");
-  }
-}
-
-fn main () {
-  // Adjuntamos datos a cada variante de la enum directamente, por lo que no hay necesidad de una estructura extra
-  let some_payment = Payment::Cash(100.);
-  proccess_payment(some_payment);
-
-  let cc_payment = Payment::CreditCard("CC Num".to_string(), 250.);
-  proccess_payment(cc_payment);
-
-  let debit_payment = Payment::DebitCard(DebitData {
-    card_number: "Debit num".to_string(),
-    amount: 100.,
-  });
-  proccess_payment(debit_payment);
-
-  let crypto_payment = Payment::Crypto{account_id: "abc 123".to_string(), amount: 20.};
-  proccess_payment(crypto_payment);
-}
-
-fn proccess_payment(some_payment: Payment) {
-  match some_payment {
-    Payment::Cash(amt) => {
-      println!("Paying with cash... in the amount of {}", amt);
-    }
-    /* Payment::CreditCard(dsc, amt) => {
-      println!("Paying with credit card... Desc is {} and amount is {} ", dsc, amt);
-    } */
-    /* Payment::CreditCard(dsc, _amt) => { //Poniendole _amt no valida si se esta utilizando el parametro
-      println!("Paying with credit card... Desc is {}", dsc);
-    } */
-    Payment::CreditCard(dsc, _) => { //Poniendole _ no valida que le hace falta otro parametro de usar
-      println!("Paying with credit card... Desc is {}", dsc);
-    }
-    Payment::DebitCard(data) => {
-      println!("Paying with debit card... card_number {}, amount {}", data.card_number, data.amount);
-    }
-    Payment::Crypto{account_id, amount} => {
-      println!("Paying with crypto... account_id {}, amount {}", account_id, amount);
-    }
-  }
+  let x: i8 = 5;
+  let y: Option<i8> = Some(5);
+  // No se puede sumar un i8 y un Option<i8>, porque son tipos diferentes
+  // let sum = x + y; // ste código no se compila porque está intentando añadir un i8 a un Option<i8>
+  // Se debe convertir una Option<T> en una T antes de poder realizar operaciones T
+  // Entonces, cuando se usa ese valor, se requiere que se maneje explícitamente el caso cuando el valor es nulo
+  // Dondequiera que un valor tenga un tipo que no sea una Option<T>, puedes asumir con seguridad que el valor no es nulo.
 }

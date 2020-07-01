@@ -1,11 +1,15 @@
-// Enumaration
+// Enumerados
+// Enums permite definir un tipo enumerando sus posibles valores
+// Definiremos y usaremos un enum para mostrar cómo se puede codificar el significado junto con los datos
 /* enum Payment {
+  // Las siguientes se las conoce como variantes del enum
   Cash,
   CreditCard,
   DebitCard,
 }
 
 fn main () {
+  // las variantes de la enumeración están en el namespace de su identificador y usamos los ::
   let some_payment = Payment::Cash;
 
   match some_payment {
@@ -23,6 +27,7 @@ fn main () {
 }*/
 
 enum Payment {
+  // Definiendo valores asociados a las variantes
   Cash(f32), // Value
   CreditCard(String, f32), // Tuple
   DebitCard(DebitData), // Struct
@@ -34,7 +39,34 @@ struct DebitData {
   pub amount: f32
 }
 
+// Este código muestra que se puede poner cualquier tipo de datos dentro de una variante de enum:
+// cadenas, tipos numéricos o estructuras. Incluso puedes incluir otra enumeración.
+struct Ipv4Addr {}
+struct Ipv6Addr {}
+
+enum IpAddr {
+  v4(Ipv4Addr),
+  v6(Ipv6Addr)
+}
+
+// Definir un enum con variantes como estas es similar a definir diferentes tipos de estructuras,
+// excepto que el enum y todas las variantes se agrupan bajo el un tipo único
+enum Message {
+  Quit,
+  Move { x: i32, y: i32 },
+  Write(String),
+  ChangeColor(i32, i32, i32),
+}
+
+// También es posible implementar métodos sobre los enums
+impl Message {
+  fn call(&self) {
+    println!("Call");
+  }
+}
+
 fn main () {
+  // Adjuntamos datos a cada variante de la enum directamente, por lo que no hay necesidad de una estructura extra
   let some_payment = Payment::Cash(100.);
   proccess_payment(some_payment);
 
