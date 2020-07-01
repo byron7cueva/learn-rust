@@ -1,104 +1,107 @@
-// Struct
-struct User {
-  username: String,
-  email: String,
-  sign_in_count: u64,
-  active: bool
+// Enumerados
+// Enums permite definir un tipo enumerando sus posibles valores
+// Definiremos y usaremos un enum para mostrar cómo se puede codificar el significado junto con los datos
+/* enum Payment {
+  // Las siguientes se las conoce como variantes del enum
+  Cash,
+  CreditCard,
+  DebitCard,
 }
 
-// La anotación derive que pueden añadir un comportamiento útil a nuestros tipos personalizados.
-// Permiten añadir rasgos y sus comportamientos
-#[derive(Debug)] // Es una anotacion
-struct Rectangle {
-  width: u32,
-  height: u32
+fn main () {
+  // las variantes de la enumeración están en el namespace de su identificador y usamos los ::
+  let some_payment = Payment::Cash;
+
+  match some_payment {
+    Payment::Cash => {
+      println!("Paying with cash...");
+    }
+    Payment::CreditCard => {
+      println!("Paying with credit card...");
+    }
+    /* Payment::DebitCard => {
+      println!("Paying with debit card...");
+    }*/
+    _ => {}
+  }
+}*/
+
+enum Payment {
+  // Definiendo valores asociados a las variantes
+  Cash(f32), // Value
+  CreditCard(String, f32), // Tuple
+  DebitCard(DebitData), // Struct
+  Crypto{account_id: String, amount: f32},
 }
 
-// Implementación
-impl Rectangle {
-  // Metodo
-  // Los métodos te permiten especificar el comportamiento que tienen las instancias de tus estructuras
-  // Se definen en el contexto de la estructura (o un objeto enum o un rasgo)
-  // y su primer parametro siempre es self, que representa la instancia de la estructura
-  // en la que se esta invocando el metodo
-  fn area(&self) -> u32 {
-    self.width * self.height
-  }
-
-  fn can_hold(&self, rect2: &Rectangle) -> bool {
-    rect2.width < self.width && rect2.height < self.height
-  }
-
-  // Funciones asociadas
-  // Se llaman funciones asociadas porque están asociadas a la estructura.
-  // Permiten la funcionalidad de espacio de nombres que es particular a la estructura sin tener una instancia
-  // disponible
-  // Siguen siendo funciones, no métodos, porque no tienen una instancia de la estructura con la que trabajar
-  // Estas se utilizan a menudo para constructores que devolverán una nueva instancia de la estructura
-  // Para llamar a esta función asociada, usamos la sintaxis :: con el nombre de la estructura
-  // Esta función está en el namespace de la estructura: la
-  // sintaxis :: se utiliza tanto para las funciones asociadas como para los namespaces creados por los
-  // módulos.
-  fn square(size: u32) -> Rectangle {
-    Rectangle { width: size, height: size }
-  }
+struct DebitData {
+  pub card_number: String,
+  pub amount: f32
 }
 
-// Cada struct puede tener varios bloques impl
-impl Rectangle {
-  fn perimeter(&self) -> u32 {
-    (self.width * 2) + (self.height * 2)
+// Este código muestra que se puede poner cualquier tipo de datos dentro de una variante de enum:
+// cadenas, tipos numéricos o estructuras. Incluso puedes incluir otra enumeración.
+struct Ipv4Addr {}
+struct Ipv6Addr {}
+
+enum IpAddr {
+  v4(Ipv4Addr),
+  v6(Ipv6Addr)
+}
+
+// Definir un enum con variantes como estas es similar a definir diferentes tipos de estructuras,
+// excepto que el enum y todas las variantes se agrupan bajo el un tipo único
+enum Message {
+  Quit,
+  Move { x: i32, y: i32 },
+  Write(String),
+  ChangeColor(i32, i32, i32),
+}
+
+// También es posible implementar métodos sobre los enums
+impl Message {
+  fn call(&self) {
+    println!("Call");
   }
 }
 
 fn main () {
-  let user1 = User {
-    email: String::from("user1@mail.com"),
-    username: String::from("user1"),
-    sign_in_count: 1,
-    active: true
-  };
+  // Adjuntamos datos a cada variante de la enum directamente, por lo que no hay necesidad de una estructura extra
+  let some_payment = Payment::Cash(100.);
+  proccess_payment(some_payment);
 
-  // La sintaxis .. especifica que los campos restantes que no se han fijado explícitamente deben
-  // tener el mismo valor que los campos de la instancia indicada.
-  let user2 = User {
-    email: String::from("user2@mail.com"),
-    username: String::from("username"),
-    ..user1
-  };
+  let cc_payment = Payment::CreditCard("CC Num".to_string(), 250.);
+  proccess_payment(cc_payment);
 
-  let rect1 = Rectangle {
-    width: 30,
-    height: 50
-  };
-  println!("El area del rectangulo es {}", area(&rect1));
-  println!("El rectangulos es {:?}", rect1);
-  println!("El rectangulos es {:#?}", rect1);
-  // Cuando se llama a un método con object.something(), Rust añade
-  // automáticamente &, &mut, o * para que el objeto coincida con la firma del método.
-  // Por lo tanto la siguientes linea es lo mismo
-  println!("EL area del rectangulo es {}", (&rect1).area());
-  println!("EL area del rectangulo es {}", rect1.area());
+  let debit_payment = Payment::DebitCard(DebitData {
+    card_number: "Debit num".to_string(),
+    amount: 100.,
+  });
+  proccess_payment(debit_payment);
 
-  // Para llamar a esta función asociada, usamos la sintaxis :: con el nombre de la estructura
-  // No hay ninguna razón para separar estos métodos en múltiples bloques impl, pero esta es una
-  // sintaxis válida.
-  let sq = Rectangle::square(3);
-  println!("El perímetro es {}", sq.perimeter());
+  let crypto_payment = Payment::Crypto{account_id: "abc 123".to_string(), amount: 20.};
+  proccess_payment(crypto_payment);
 }
 
-// Construye un Usuario
-fn build_user(email: String, username: String) -> User {
-  // Debido a que el campo email y el parámetro email tienen el mismo nombre, sólo
-  // necesitamos escribir email en lugar de email: email
-  User {
-    email,
-    username,
-    active: true,
-    sign_in_count: 1
+fn proccess_payment(some_payment: Payment) {
+  match some_payment {
+    Payment::Cash(amt) => {
+      println!("Paying with cash... in the amount of {}", amt);
+    }
+    /* Payment::CreditCard(dsc, amt) => {
+      println!("Paying with credit card... Desc is {} and amount is {} ", dsc, amt);
+    } */
+    /* Payment::CreditCard(dsc, _amt) => { //Poniendole _amt no valida si se esta utilizando el parametro
+      println!("Paying with credit card... Desc is {}", dsc);
+    } */
+    Payment::CreditCard(dsc, _) => { //Poniendole _ no valida que le hace falta otro parametro de usar
+      println!("Paying with credit card... Desc is {}", dsc);
+    }
+    Payment::DebitCard(data) => {
+      println!("Paying with debit card... card_number {}, amount {}", data.card_number, data.amount);
+    }
+    Payment::Crypto{account_id, amount} => {
+      println!("Paying with crypto... account_id {}, amount {}", account_id, amount);
+    }
   }
-}
-
-fn area(rectangle: &Rectangle) -> u32 {
-  rectangle.width * rectangle.height
 }
