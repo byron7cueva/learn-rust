@@ -28,4 +28,21 @@ fn main () {
     // Se debe convertir una Option<T> en una T antes de poder realizar operaciones T
     // Entonces, cuando se usa ese valor, se requiere que se maneje explícitamente el caso cuando el valor es nulo
     // Dondequiera que un valor tenga un tipo que no sea una Option<T>, puedes asumir con seguridad que el valor no es nulo.
+
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+}
+
+// Option con match
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    // Los match en Rust son exhaustivos: debemos agotar todas las posibilidades para que el código sea válido.
+    // Especialmente en el caso de Option<T>, cuando Rust nos impide olvidarnos de manejar
+    // explícitamente el caso de None, nos protege de asumir que tenemos un valor cuando podríamos
+    // tener nulo
+    match x {
+        None => None,
+        // Obteniendo el valor de T de Option<T>
+        Some(i) => Some(i + 1)
+    }
 }
