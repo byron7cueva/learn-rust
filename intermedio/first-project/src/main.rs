@@ -1,54 +1,20 @@
-// if let
-// Permite manejar valores que coinciden con un patrón mientras ignoras el resto.
-// La sintaxis if let toma un patrón y una expresión separados por un signo igual. Funciona de la
-// misma manera que un match donde la expresión es el match y el patrón es su primer brazo.
-// Sin embargo, se pierde el control exhaustivo que hace cumplir la coincidencia, que tiene match
-// Se puede pensar en if let si solo hay una coincidencia que ejecuta código cuando el
-// valor coincide con un patrón y luego ignora todos los demás valores.
-
-#[derive(Debug)]
-enum UsState {
-  Alabama,
-  Alaska
-}
-
-enum Coin {
-  Penny,
-  Nickel,
-  Dime,
-  Quarter(UsState)
-}
+// slice
+// Son similares a los arrays, pero su tamaño no se conoce en el momento de la compilación.
+// En cambio, una slice es un objeto de dos palabras, la primera palabra es un puntero a
+// los datos, y la segunda palabra es la longitud de la slice. El tamaño de la palabra es el mismo que el
+// de usize, determinado por la arquitectura del procesador, por ejemplo 64 bits en un x86-64. Las
+// slices se pueden usar para tomar prestada una sección de un array, y tienen el tipo &[T].
 
 fn main () {
-  // Queremos hacer algo con la coincidencia Some(3) pero no hacer nada con ningún otro valor
-  // Some<u8> o el valor None. Para satisfacer la expresión match tenemos que añadir _ => () después
-  // de procesar sólo una variante
-  let some_u8_value = Some(3u8);
-  match some_u8_value {
-    Some(3) => println!("Three"),
-    _ => ()
-  }
+  let xs: [i32; 5] = [1, 2, 3, 4, 5];
+  // Los arrays pueden ser prestados (borrow) como un slice
+  analyze_slice(&xs);
+  // Los slice pueden apuntar a una seccion del array
+  analyze_slice(&xs[1..4]); // Esclusive la posición 4, es deci va tomar desde la posición 1 hasta 3
+}
 
-  // Lo anterior se puede escribir esto de una manera más corta usando if let
-  if let Some(3) = some_u8_value {
-    println!("Three")
-  }
-
-  //
-  let coin = Coin::Penny;
-  let mut count = 0;
-
-  match coin {
-    Coin::Quarter(state) => println!("El quarter de esta {:?}", state),
-    _ => count += 1
-  }
-
-  // Podemos incluir una else con un if let. El bloque de código que va con el resto es el mismo que el
-  // bloque de código que iría con el caso _ en la expresión match que es equivalente a if let y else
-  let coin2 = Coin::Penny;
-  if let Coin::Quarter(state) = coin2 {
-    println!("El quarter de esta {:?}", state);
-  } else {
-    count += 1;
-  }
+fn analyze_slice(slice: &[i32]) {
+  println!("{:?}", slice);
+  println!("El primer elemento del slice es {}", slice[0]);
+  println!("La longitud del slice es {}", slice.len());
 }
