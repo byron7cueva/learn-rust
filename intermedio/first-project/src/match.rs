@@ -21,6 +21,20 @@ fn main () {
     value_in_cents(Coin::Penny);
     value_in_cents(Coin::Dime);
     value_in_cents(Coin::Quarter(UsState::Alabama));
+
+    let some_u8_value: u8 = 0;
+    // Poniéndolo después de nuestros otros brazos, el _
+    // coincidirá con todos los casos posibles que no se hayan especificado antes
+    match some_u8_value {
+        1 => println!("uno"),
+        3 => println!("tres"),
+        5 => println!("cinco"),
+        7 => println!("siete"),
+        // El () es sólo el valor unitario, por lo que no ocurrirá nada en el caso _.
+        // Como resultado, podemos decir que no queremos
+        // hacer nada por todos los valores posibles que no enumeramos antes del marcador de posición _
+        _ => ()
+    }
 }
 
 fn value_in_cents(coin: Coin) -> u32 {
