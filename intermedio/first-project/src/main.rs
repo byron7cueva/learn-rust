@@ -1,8 +1,10 @@
-// match
-// Es un operador de control de flujo
-// Permite comparar un valor frente a una serie de patrones y luego ejecutar código basado en el patrón
-// coincidente. Los patrones pueden estar compuestos de valores literales, nombres de variables,
-// carácteres, y muchas otras cosas;
+// if let
+// Permite manejar valores que coinciden con un patrón mientras ignoras el resto.
+// La sintaxis if let toma un patrón y una expresión separados por un signo igual. Funciona de la
+// misma manera que un match donde la expresión es el match y el patrón es su primer brazo.
+// Sin embargo, se pierde el control exhaustivo que hace cumplir la coincidencia, que tiene match
+// Se puede pensar en if let si solo hay una coincidencia que ejecuta código cuando el
+// valor coincide con un patrón y luego ignora todos los demás valores.
 
 #[derive(Debug)]
 enum UsState {
@@ -18,43 +20,35 @@ enum Coin {
 }
 
 fn main () {
-  value_in_cents(Coin::Penny);
-  value_in_cents(Coin::Dime);
-  value_in_cents(Coin::Quarter(UsState::Alabama));
-
-  let some_u8_value: u8 = 0;
-  // Poniéndolo después de nuestros otros brazos, el _
-  // coincidirá con todos los casos posibles que no se hayan especificado antes
+  // Queremos hacer algo con la coincidencia Some(3) pero no hacer nada con ningún otro valor
+  // Some<u8> o el valor None. Para satisfacer la expresión match tenemos que añadir _ => () después
+  // de procesar sólo una variante
+  let some_u8_value = Some(3u8);
   match some_u8_value {
-    1 => println!("uno"),
-    3 => println!("tres"),
-    5 => println!("cinco"),
-    7 => println!("siete"),
-    // El () es sólo el valor unitario, por lo que no ocurrirá nada en el caso _.
-    // Como resultado, podemos decir que no queremos
-    // hacer nada por todos los valores posibles que no enumeramos antes del marcador de posición _
+    Some(3) => println!("Three"),
     _ => ()
   }
-}
 
-fn value_in_cents(coin: Coin) -> u32 {
-  // Cuando match se ejecuta, compara el valor resultante contra el patrón de cada brazo, en orden. Si un
-  // patrón coincide con el valor, se ejecuta el código asociado a ese patrón. Si ese patrón no coincide
-  // con el valor, la ejecución continúa hasta el siguiente brazo
-  // Las llaves no se usan si el código del brazo es corto. Si es necesario ejecutar múltiples líneas de
-  // código en un brazo se pueden usar llaves.
+  // Lo anterior se puede escribir esto de una manera más corta usando if let
+  if let Some(3) = some_u8_value {
+    println!("Three")
+  }
+
+  //
+  let coin = Coin::Penny;
+  let mut count = 0;
+
   match coin {
-    Coin::Penny => {
-      println!("Penny");
-      1
-    },
-    Coin::Nickel => 5,
-    Coin::Dime => 10,
-    // match es que pueden enlazar con las partes de los valores
-    // que coinciden con el patrón. Así es como podemos extraer valores de las variantes enum.
-    Coin::Quarter(state) => {
-      println!("State quarter from {:?}", state);
-      25
-    }
+    Coin::Quarter(state) => println!("El quarter de esta {:?}", state),
+    _ => count += 1
+  }
+
+  // Podemos incluir una else con un if let. El bloque de código que va con el resto es el mismo que el
+  // bloque de código que iría con el caso _ en la expresión match que es equivalente a if let y else
+  let coin2 = Coin::Penny;
+  if let Coin::Quarter(state) = coin2 {
+    println!("El quarter de esta {:?}", state);
+  } else {
+    count += 1;
   }
 }
