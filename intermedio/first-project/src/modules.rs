@@ -7,57 +7,57 @@
 // Todo el árbol de módulos está ubicado bajo el módulo implícito llamado crate
 
 mod sound {
-  fn guitar() {}
+    fn guitar() {}
 }
 
 // Para organizar el código en una jerarquía de módulos, puedes anidar módulos dentro de otros
 // módulos
 mod sound2 {
- pub mod instrument {
-    pub mod woodwind {
-      pub fn clarinet() {
-        println!("call to clarinet");
-        // Podemos usar super para ir al módulo padre
-        super::breathe_in();
-      }
+    pub mod instrument {
+        pub mod woodwind {
+            pub fn clarinet() {
+                println!("call to clarinet");
+                // Podemos usar super para ir al módulo padre
+                super::breathe_in();
+            }
+        }
+
+        fn breathe_in() {
+            println!("call breathe_in")
+        }
     }
+    mod voice {
 
-   fn breathe_in() {
-     println!("call breathe_in")
-   }
-  }
-  mod voice {
-
-  }
+    }
 }
 
 mod plant {
-  pub struct Vegetable {
-    pub name: String,
-    id: u32
-  }
-
-  impl Vegetable {
-    // Debido a que plant::Vegetable tiene un campo privado, la estructura necesita proporcionar una
-    // función pública asociada que construya una instancia de Vegetable Si Vegetable no tuviera tal
-    // función, no podríamos crear una instancia de Vegetable en main porque no se nos permite establecer
-    // el valor del campo id
-    pub fn new(name: &str) -> Vegetable {
-      Vegetable {
-        name: String::from(name),
-        id: 1
-      }
+    pub struct Vegetable {
+        pub name: String,
+        id: u32
     }
-  }
+
+    impl Vegetable {
+        // Debido a que plant::Vegetable tiene un campo privado, la estructura necesita proporcionar una
+        // función pública asociada que construya una instancia de Vegetable Si Vegetable no tuviera tal
+        // función, no podríamos crear una instancia de Vegetable en main porque no se nos permite establecer
+        // el valor del campo id
+        pub fn new(name: &str) -> Vegetable {
+            Vegetable {
+                name: String::from(name),
+                id: 1
+            }
+        }
+    }
 }
 
 mod menu {
-  // Si se hace una enum pública, todas sus variantes son públicas. Sólo necesita el pub
-  // antes de la palabra clave enum
-  pub enum Appetizer {
-    Soup,
-    Salad,
-  }
+    // Si se hace una enum pública, todas sus variantes son públicas. Sólo necesita el pub
+    // antes de la palabra clave enum
+    pub enum Appetizer {
+        Soup,
+        Salad,
+    }
 }
 
 // llevar un path a un ámbito una vez y luego llamar a los elementos de ese path como si fueran elementos
@@ -85,19 +85,19 @@ use std::fmt::Result;
 use std::io::Result as IoResult;
 
 fn main () {
-  // Ruta absoluta
-  crate::sound2::instrument::woodwind::clarinet();
+    // Ruta absoluta
+    crate::sound2::instrument::woodwind::clarinet();
 
-  // Ruta relativa
-  sound2::instrument::woodwind::clarinet();
+    // Ruta relativa
+    sound2::instrument::woodwind::clarinet();
 
-  let mut veg = plant::Vegetable::new("tomate");
-  veg.name = String::from("cebolla");
-  println!("El nombre del vegetal es {}", veg.name);
-  // println!("El id del vegetal es {}", veg.id); No se puede acceder a la propiedad id ya que es privada
+    let mut veg = plant::Vegetable::new("tomate");
+    veg.name = String::from("cebolla");
+    println!("El nombre del vegetal es {}", veg.name);
+    // println!("El id del vegetal es {}", veg.id); No se puede acceder a la propiedad id ya que es privada
 
-  let order1 = menu::Appetizer::Salad;
-  let order2 = menu::Appetizer::Soup;
+    let order1 = menu::Appetizer::Salad;
+    let order2 = menu::Appetizer::Soup;
 
-  woodwind::clarinet();
+    woodwind::clarinet();
 }
