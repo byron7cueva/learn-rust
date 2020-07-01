@@ -13,12 +13,12 @@ const THRESHOLD: i32 = 10;
 static LANGUAGE: &str = "Rust";
 
 fn main () {
-  let n = 6;
-  println!("Este lenguage es {}", LANGUAGE);
-  println!("El límite es {}", THRESHOLD);
-  println!("{} es {}", n, if is_big(n) { "mayor" } else { "menor" });
+    let n = 6;
+    println!("Este lenguage es {}", LANGUAGE);
+    println!("El límite es {}", THRESHOLD);
+    println!("{} es {}", n, if is_big(n) { "mayor" } else { "menor" });
 }
 
 fn is_big(n: i32) -> bool {
-  n > THRESHOLD
+    n > THRESHOLD
 }
