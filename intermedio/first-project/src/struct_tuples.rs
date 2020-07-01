@@ -15,4 +15,8 @@ struct UniLike();
 fn main () {
     let back = Color(0, 0, 0);
     let origin = Point(0, 0 ,0);
+
+    // Destructurando
+    let Color(red, green, blue) = back;
+    println!("El color es red {}, green {} y blue {}", red, green, blue);
 }

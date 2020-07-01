@@ -6,6 +6,10 @@ struct User {
     active: bool
 }
 
+// Units struct
+// No requieren campo, son útiles para los genéricos.
+struct Nil;
+
 // La anotación derive que pueden añadir un comportamiento útil a nuestros tipos personalizados.
 // Permiten añadir rasgos y sus comportamientos
 #[derive(Debug)] // Es una anotacion
@@ -71,6 +75,10 @@ fn main () {
         width: 30,
         height: 50
     };
+    // Destructurando
+    let Rectangle{width: my_width, height: my_height} = rect1;
+    println!("El rectangulo es ancho = {}, alto = {}", my_width, my_height);
+    //
     println!("El area del rectangulo es {}", area(&rect1));
     println!("El rectangulos es {:?}", rect1);
     println!("El rectangulos es {:#?}", rect1);
@@ -85,6 +93,9 @@ fn main () {
     // sintaxis válida.
     let sq = Rectangle::square(3);
     println!("El perímetro es {}", sq.perimeter());
+
+    // Instanciando una unit struct
+    let _nil = Nil;
 }
 
 // Construye un Usuario

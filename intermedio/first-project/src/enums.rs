@@ -26,6 +26,20 @@ fn main () {
   }
 }*/
 
+// Los enums tienen un descriminador implicito. Las variantes toman valores empezando desde 0
+enum Number {
+  Zero,
+  One,
+  Two
+}
+
+// Enum con descriminador explicito, es decir indicando su valores a cada variante
+enum Color {
+  Red = 0xff0000,
+  Green = 0x00ff00,
+  Blue = 0x0000ff
+}
+
 enum Payment {
   // Definiendo valores asociados a las variantes
   Cash(f32), // Value
@@ -66,6 +80,14 @@ impl Message {
 }
 
 fn main () {
+  // Los enums pueden ser casteados a enteros
+  println!("Zero es {}", Number::Zero as i32);
+  println!("One es {}", Number::One as i32);
+  println!("Two es {}", Number::Two as i32);
+
+  println!("rojo es #{:06x}", Color::Red as i32);
+  println!("azul es #{:06x}", Color::Blue as i32);
+
   // Adjuntamos datos a cada variante de la enum directamente, por lo que no hay necesidad de una estructura extra
   let some_payment = Payment::Cash(100.);
   proccess_payment(some_payment);
