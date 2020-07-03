@@ -1,198 +1,99 @@
-// traits -> Rasgos (Similares a las interfaces en otros lenguajes de programacion)
-// Definimos un trait usando la palabra clave trait y luego el nombre del rasgo
-// Dentro de las llaves declaramos los métodos que describen los comportamientos de los
-// tipos que tienen este rasgo.
+// Vectores
+// Los vectores te
+// permiten almacenar más de un valor en una sola estructura de datos que pone todos los valores uno
+// al lado del otro en la memoria. Los vectores sólo pueden almacenar valores del mismo tipo.
 
-// Cada tipo que implemente este rasgo debe proporcionar su propio
-// comportamiento personalizado para el cuerpo del método
+fn main () {
+    // Crear un nuevo vector vacío
+    // Observa que hemos añadido una anotación de tipo. Debido a que no estamos insertando ningún
+    // valor en este vector, Rust no sabe qué tipo de elementos intentamos almacenar. Este es un punto
+    // importante.
+    let vect1: Vec<i32> = Vec::new();
 
-// Una restricción a tener en cuenta con las implementaciones de traits es que podemos implementar
-// un trait en un tipo sólo si el rasgo o el tipo es local a nuestra caja
-// no podemos implementar rasgos externos en tipos externos. Por ejemplo, no podemos
-// implementar el rasgo Display en Vec<T> dentro de nuestra caja de agregadores, porque Display y
-// Vec<T> están definidos en la biblioteca estándar y no son locales a nuestra caja
+    // Rust puede inferir el tipo de valor que desea almacenar una vez que inserta los valores
+    // Rust proporciona la macro vec! esta creará un nuevo vector que contiene los valores que le das
+    let vect2 = vec![1, 2, 3];
 
-use std::fmt::{Display, Debug};
+    let mut vect3: Vec<i32> = Vec::new();
+    vect3.push(1);
+    vect3.push(2);
+    vect3.push(3);
+    vect3.push(4);
 
-trait Summary {
-    fn summarize(&self) -> String;
-}
+    let thrird: &i32 = &vect3[2];
+    println!("El tercer elemento es {}", thrird);
 
-struct NewsArticle {
-    headline: String,
-    location: String,
-    author: String,
-    content: String
-}
-
-impl Summary for NewsArticle {
-    fn summarize(&self) -> String {
-        format!("{} by {} ({})", self.headline, self.author, self.location)
+    match vect3.get(2) {
+        Some(t) => println!("El tercer elemento es {}", t),
+        None => println!("No tiene un tercer elemento")
     }
-}
 
-struct Tweet {
-    username: String,
-    content: String,
-    reply: bool,
-    retweet: bool
-}
-
-impl Summary for Tweet {
-    fn summarize(&self) -> String {
-        format!("{}: {}", self.username, self.content)
+    let mut vect4 = vec![1, 2, 3, 4];
+    let first = &vect4[0];
+    // Esto dara un error
+    // Ya que no se puede tener una referencia inmutable y mutable en el mismo ambito
+    // vect4.push(5);
+    println!("El primer elemento es: {}", first);
+    // Usar un bucle para obtener referencias inmutables a cada elemento en un vector
+    for i in &vect4 {
+        println!("{}", i);
     }
-}
 
-// Implementaciones por defecto
-trait Summary2 {
-    fn summarize(&self) -> String {
-        String::from("Contenido generico")
+    // También podemos iterar sobre las referencias mutables de cada elemento en un vector mutable para
+    // hacer cambios en todos los elementos
+    for i in &mut vect4 {
+        // Para cambiar el valor al que se refiere la referencia mutable, tenemos que utilizar el operador de
+        // referencia (*) para llegar al valor en i antes de poder utilizar el operador +=
+        *i += 50;
     }
+
+    let number_list = vec![34,50, 25, 100, 65];
+    let result = largest(&number_list);
+    println!("El núemero mayor de la lista es {}", result);
+    assert_eq!(result, 100);
+
+    let char_list = vec!['y', 'm', 'a', 'q'];
+    let result = largest3(&char_list);
+    println!("The largest char is {}", result);
 }
 
-struct OtherContent {
-    author: String,
-    content: String
-}
+// Encontrar el número más grande de una lista de números
+// list representa cualquier slice de i32 que podamos pasar a la función
+fn largest(list: &[i32]) -> i32 {
+    let mut largest = list[0];
 
-// Para utilizar una implementación predeterminada en lugar
-// de definir una implementación personalizada, especificamos un bloque impl vacío
-impl Summary2 for OtherContent {}
-
-// Las implementaciones predeterminadas pueden llamar a otros métodos del mismo trait, incluso si
-// esos otros métodos no tienen una implementación predeterminada
-// No es posible llamar a la implementación predeterminada desde una
-// implementación sobreescrita de ese mismo método.
-trait Summaray3 {
-    fn summarize_author(&self) -> String;
-    fn summarize(&self) -> String {
-        format!("Leer mas de {}", self.summarize_author())
-    }
-}
-
-struct Tweet2 {
-    username: String,
-    content: String
-}
-
-impl Summaray3 for Tweet2 {
-    fn summarize_author(&self) -> String {
-        format!("@{}", self.username)
-    }
-}
-
-fn main() {
-    let tweet = Tweet {
-        username: String::from("Byron"),
-        content: String::from("Este es un contenido"),
-        reply: false,
-        retweet: false
-    };
-
-    println!("Un nuevo tweet: {}", tweet.summarize());
-
-    let other_content = OtherContent{
-        author: String::from("Byron"),
-        content: String::from("Este es un contenido")
-    };
-
-    println!("El resumen es: {}", other_content.summarize());
-
-    let tweet2 = Tweet2 {
-        username: String::from("Byron"),
-        content: String::from("Ejemplo de contenido")
-    };
-
-    println!("El resuen del tweet2 es: {}", tweet2.summarize());
-
-    notify(tweet);
-}
-
-// Traits como argumentos
-// Podremos utilizar como parámetro cualquier tipo que tenga implementado el
-// trait Sumary
-fn notify(item: impl Summary) {
-    println!("El resumen es: {}", item.summarize());
-}
-
-// Límites de los traits
-// Utilizar impl para indicar que los parámetros de una función deben tener implementado el trait
-// correspondiente es útil cuando únicamente hay un parámetro como en el caso anterior. Pero existe
-// otra forma:
-fn notify2<T: Summary>(item: T) {
-    println!("El resumen es: {}", item.summarize());
-}
-
-// impl Trait es mejor para pocos
-// parámetros, la segunda forma cuando hay más parámetros que contienen ese trait
-// Esto funcionará bien si se permitiera que item1 e item 2 tuvieran tipos diferentes (siempre y cuando
-// ambos implementen Summary)
-fn notify3(item1: impl Summary, item2: impl Summary) {
-
-}
-
-// Si quisieras forzar a ambos a tener exactamente el mismo tipo
-fn notify4<T: Summary>(item1: T, item2: T) {
-
-}
-
-// Limitando a varios traits
-// necesita implementar dos traits diferentes al mismo tiempo
-// Podemos indicarlo en la definición de la función con +
-fn notify5(item: impl Summary + Display) {
-
-}
-// O
-fn notify6<T: Summary + Display>(item: T) {
-
-}
-
-// Sintaxis alternativa para especificar los límites de los traits dentro de una cláusula where
-// después de la definición de la función
-// Usando +
-fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) {
-}
-
-// Usando where
-fn some_function2<T,U>(t: T, u: U)
-where T: Display + Clone,
-    U: Clone + Debug {
-
-}
-
-// Traits devueltos cómo resultado de una función
-// Podemos usar la sintaxis “impl Trait” en la posición de retorno de la función para devolver algo que
-// implemente un trait
-fn return_summarizable() -> impl Summary {
-    // Esta definición dice: "Voy a devolver algo que implementa el trait Summary, pero no voy a decirte
-    // el tipo exacto". En nuestro caso, estamos devolviendo un Tweet, pero la persona que llama no lo
-    // sabe
-    Tweet {
-        username: String::from("Byron"),
-        content: String::from("Algun contenido"),
-        reply: false,
-        retweet: false
-    }
-}
-
-// Pero esto sólo funciona si se devuelve solo un tipo, el siguiente codigo no funciona
-/*
-fn return_summarizable2(switch: bool) -> impl Summary {
-    if switch {
-        Tweet {
-            username: String::from("Byron"),
-            content: String::from("Algun contenido"),
-            reply: false,
-            retweet: false
-        }
-    } else {
-        NewsArticle {
-            author: String::from("Byron"),
-            content: String::from("Contenido"),
-            location: String::from("Location"),
-            headline: String::from("Algo")
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
         }
     }
+    largest
 }
- */
+
+// Cuando hicimos la función largest genérica, se hizo posible que el
+// parámetro de la lista tuviera tipos en ella que no implementaran el trait Copy
+// En consecuencia, no podríamos mover el valor de la lista[0] a la variable largest,
+// lo que provocaría un error
+/* fn largest2<T>(list: &[T]) -> T {
+    let mut largest = list[0];
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+    largest
+} */
+
+// Los tipos de valores de la slice que pasemos a la
+// función implementen los traits PartialOrd y Copy, como hacen i32 y char
+fn largest3<T: PartialOrd + Copy>(list: &[T]) -> T {
+
+    let mut largest = list[0];
+
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+    largest
+}

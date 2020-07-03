@@ -51,11 +51,43 @@ fn main () {
     let result = largest(&number_list);
     println!("El núemero mayor de la lista es {}", result);
     assert_eq!(result, 100);
+
+    let char_list = vec!['y', 'm', 'a', 'q'];
+    let result = largest3(&char_list);
+    println!("The largest char is {}", result);
 }
 
 // Encontrar el número más grande de una lista de números
 // list representa cualquier slice de i32 que podamos pasar a la función
 fn largest(list: &[i32]) -> i32 {
+    let mut largest = list[0];
+
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+    largest
+}
+
+// Cuando hicimos la función largest genérica, se hizo posible que el
+// parámetro de la lista tuviera tipos en ella que no implementaran el trait Copy
+// En consecuencia, no podríamos mover el valor de la lista[0] a la variable largest,
+// lo que provocaría un error
+/* fn largest2<T>(list: &[T]) -> T {
+    let mut largest = list[0];
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+    largest
+} */
+
+// Los tipos de valores de la slice que pasemos a la
+// función implementen los traits PartialOrd y Copy, como hacen i32 y char
+fn largest3<T: PartialOrd + Copy>(list: &[T]) -> T {
+
     let mut largest = list[0];
 
     for &item in list.iter() {
