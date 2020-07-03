@@ -156,8 +156,8 @@ fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) {
 
 // Usando where
 fn some_function2<T,U>(t: T, u: U)
-where T: Display + Clone,
-    U: Clone + Debug {
+    where T: Display + Clone,
+          U: Clone + Debug {
 
 }
 
