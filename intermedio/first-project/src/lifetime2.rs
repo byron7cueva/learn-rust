@@ -106,7 +106,7 @@ fn longest3<'a>(x: &'a str, y: &str) -> &'a str {
     result.as_str()
 } */
 
- // La sintaxis de vida útil se refiere a la conexión de la vida útil de varios
+// La sintaxis de vida útil se refiere a la conexión de la vida útil de varios
 // parámetros y los valores de retorno de las funciones
 
 // Lifetimes en definición de structs
