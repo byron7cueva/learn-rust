@@ -47,4 +47,21 @@ fn main () {
         *i += 50;
     }
 
+    let number_list = vec![34,50, 25, 100, 65];
+    let result = largest(&number_list);
+    println!("El núemero mayor de la lista es {}", result);
+    assert_eq!(result, 100);
+}
+
+// Encontrar el número más grande de una lista de números
+// list representa cualquier slice de i32 que podamos pasar a la función
+fn largest(list: &[i32]) -> i32 {
+    let mut largest = list[0];
+
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+    largest
 }
