@@ -26,7 +26,3 @@ impl<T: Display + PartialOrd> Pair<T> {
         }
     }
 }
-
-fn main() {
-
-}
