@@ -1,6 +1,6 @@
 use super::schemas::posts;
 
-#[derive(Queryable)]
+#[derive(Queryable, Debug)]
 pub struct Post {
   pub id: i32,
   pub title: String,
@@ -9,8 +9,8 @@ pub struct Post {
 }
 
 #[derive(Insertable)]
-#[table_name="pots"]
+#[table_name="posts"]
 pub struct NewPost<'a> {
   pub title: &'a str,
-  pub body: &'a str
+  pub body: &'a str,
 }
